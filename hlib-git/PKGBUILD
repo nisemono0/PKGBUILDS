@@ -1,0 +1,39 @@
+_pkgname=HLib
+pkgname=hlib-git
+pkgver=r7.de1e462
+pkgrel=1
+pkgdesc='My local H library view/search app'
+arch=('x86_64')
+url='https://github.com/nisemono0/HLib'
+license=('MIT')
+depends=(
+    'qt5-base'
+    'quazip-qt5'
+    'sqlite'
+)
+conflicts=("hlib-git")
+provides=("hlib-git")
+makedepends=('make' 'qt5-base')
+
+source=("git+${url}")
+
+sha256sums=('SKIP')
+
+pkgver() {
+	cd $_pkgname
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+    exit
+}
+
+prepare() {
+    cd "${_pkgname}"
+    sh ./qmakeconf.sh
+}
+
+build() {
+    make -C "${_pkgname}" release
+}
+
+package() {
+    install -Dm755 "${_pkgname}/release/HLib" -t "${pkgdir}/usr/bin/"
+}
