@@ -1,5 +1,3 @@
-# Maintainer: Chris Tam <LChris314 at gmail dot com>
-
 _pkgname=Overmix
 pkgname=overmix-git
 pkgver=r860.f5fa335
