@@ -1,6 +1,6 @@
 pkgbase = hlib-git
 	pkgdesc = My local H library view/search app
-	pkgver = r22.4c77b83
+	pkgver = r25.a655882
 	pkgrel = 1
 	url = https://github.com/nisemono0/HLib
 	arch = x86_64
