@@ -1,0 +1,30 @@
+--- transformers_ocr.py	2023-08-02 02:06:29.575465108 +0300
++++ transformers_ocr_modif.py	2023-08-02 02:07:49.990465108 +0300
+@@ -124,6 +124,13 @@
+         stderr=sys.stdout,
+     )
+ 
++def scrot_select(screenshot_path: str):
++    raise_if_missing("scrot")
++    return subprocess.run(
++        ("scrot", "-s", "-f", "-l", "mode=classic,width=2,color=white", "--overwrite", "--format", "png", screenshot_path,),
++        check=True,
++        stderr=sys.stdout,
++    )
+ 
+ def grim_select(screenshot_path: str):
+     raise_if_missing("grim", "slurp")
+@@ -140,7 +147,12 @@
+         case Platform.KDE:
+             spectactle_select(screenshot_path)
+         case Platform.Xorg:
+-            maim_select(screenshot_path)
++            if is_installed("scrot"):
++                scrot_select(screenshot_path)
++            elif is_installed("maim"):
++                maim_select(screenshot_path)
++            else:
++                raise MissingProgram("You need maim or scrot installed")
+         case Platform.Wayland:
+             grim_select(screenshot_path)
+ 
