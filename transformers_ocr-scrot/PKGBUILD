@@ -16,16 +16,16 @@ source=(
 )
 depends=('python' 'python-pip' 'libnotify')
 optdepends=(
-	 'maim: taking screenshots on Xorg'
+     'maim: taking screenshots on Xorg'
      'scrot: taking screenshots on Xort (alternative to maim)'
-	 'xclip: copying to the clipboard on Xorg'
+     'xclip: copying to the clipboard on Xorg'
 
-	 'grim: taking screenshots on Wayland'
-	 'slurp: selecting a region on Wayland'
-	 'wl-clipboard: copying to the clipboard on Wayland'
+     'grim: taking screenshots on Wayland'
+     'slurp: selecting a region on Wayland'
+     'wl-clipboard: copying to the clipboard on Wayland'
 
-	 'gnome-screenshot: taking screenshots on GNOME'
-	 'spectacle: taking screenshots on KDE'
+     'gnome-screenshot: taking screenshots on GNOME'
+     'spectacle: taking screenshots on KDE'
 )
 conflicts=("transformers_ocr")
 provides=("transformers_ocr")
@@ -40,6 +40,6 @@ prepare() {
 }
 
 package() {
-	cd -- "${_pkgname}-${pkgver}"
-	make PREFIX="${pkgdir}/usr" install
+    cd -- "${_pkgname}-${pkgver}"
+    make PREFIX="${pkgdir}/usr" install
 }
