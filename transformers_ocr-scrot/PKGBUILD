@@ -1,19 +1,21 @@
 # Maintainer: Ren Tatsumoto <tatsu at autistici dot org>
 # Original https://aur.archlinux.org/packages/transformers_ocr
-# Patched to work with scrot by me
+# Patched to work with scrot and uses the latest git version
 
 _pkgname=transformers_ocr
-pkgname=transformers_ocr-scrot
-pkgver=0.15
+pkgname=transformers_ocr-git
+pkgver=r97.16a441b
 pkgrel=1
 pkgdesc="An OCR tool for manga using maim with Transformers. (Patched to work with scrot)"
 arch=(any)
 url="https://github.com/Ajatt-Tools/transformers_ocr"
 license=("GPL3")
+
 source=(
-    "${_pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
+    "git+${url}"
     "SCROT_PATCH.diff"
 )
+
 depends=('python' 'python-pip' 'libnotify')
 optdepends=(
      'maim: taking screenshots on Xorg'
@@ -27,19 +29,27 @@ optdepends=(
      'gnome-screenshot: taking screenshots on GNOME'
      'spectacle: taking screenshots on KDE'
 )
+
 conflicts=("transformers_ocr")
 provides=("transformers_ocr")
+
 sha256sums=(
-    'e59abe2fba28aaeccbff0fde36a757cda3d447430f91077beaf10ed528b86a55'
+    'SKIP'
     'da80e10be02ea9b0f15cbf7ce113ae6c7a6e51da9059476c0b4c4d69c5eb707a'
 )
 
+pkgver() {
+    cd $_pkgname
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+    exit
+}
+
 prepare() {
-    cd -- "${_pkgname}-${pkgver}"
+    cd -- "${_pkgname}"
     patch --strip=1 -u --input="${srcdir}/SCROT_PATCH.diff" "src/transformers_ocr.py"
 }
 
 package() {
-    cd -- "${_pkgname}-${pkgver}"
+    cd -- "${_pkgname}"
     make PREFIX="${pkgdir}/usr" install
 }
