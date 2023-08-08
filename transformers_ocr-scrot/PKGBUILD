@@ -31,7 +31,7 @@ conflicts=("transformers_ocr")
 provides=("transformers_ocr")
 sha256sums=(
     'e59abe2fba28aaeccbff0fde36a757cda3d447430f91077beaf10ed528b86a55'
-    'SKIP'
+    'da80e10be02ea9b0f15cbf7ce113ae6c7a6e51da9059476c0b4c4d69c5eb707a'
 )
 
 prepare() {
