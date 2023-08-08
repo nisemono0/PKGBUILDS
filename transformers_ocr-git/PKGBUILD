@@ -1,5 +1,6 @@
 # Maintainer: Ren Tatsumoto <tatsu at autistici dot org>
 # Original https://aur.archlinux.org/packages/transformers_ocr
+
 # Patched to work with scrot and uses the latest git version
 
 _pkgname=transformers_ocr
