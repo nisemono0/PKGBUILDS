@@ -36,7 +36,7 @@ sha256sums=(
 
 prepare() {
     cd -- "${_pkgname}-${pkgver}"
-    patch --strip=1 --input="${srcdir}/SCROT_PATCH.diff" "src/transformers_ocr.py"
+    patch --strip=1 -u --input="${srcdir}/SCROT_PATCH.diff" "src/transformers_ocr.py"
 }
 
 package() {
