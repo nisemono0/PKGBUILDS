@@ -39,7 +39,6 @@ pkgver() {
 }
 
 prepare() {
-    sed -i -E 's/AVCodec \*codec/const AVCodec \*codec/' "${_pkgname}/src/video/VideoStream.cpp"
     cmake \
         -B build \
         -S "${_pkgname}" \
