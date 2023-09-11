@@ -9,7 +9,6 @@ license=('MIT')
 depends=(
     'qt5-base'
     'quazip-qt5'
-    'sqlite'
 )
 conflicts=("hlib-git")
 provides=("hlib-git")
