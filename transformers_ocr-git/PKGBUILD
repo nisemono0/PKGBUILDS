@@ -20,7 +20,7 @@ source=(
 depends=('python' 'python-pip' 'libnotify')
 optdepends=(
      'maim: taking screenshots on Xorg'
-     'scrot: taking screenshots on Xort (alternative to maim)'
+     'scrot: taking screenshots on Xorg (alternative to maim)'
      'xclip: copying to the clipboard on Xorg'
 
      'grim: taking screenshots on Wayland'
