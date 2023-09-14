@@ -36,7 +36,7 @@ provides=("transformers_ocr")
 
 sha256sums=(
     'SKIP'
-    'da80e10be02ea9b0f15cbf7ce113ae6c7a6e51da9059476c0b4c4d69c5eb707a'
+    '05a94716f35b2d557a2b1631df36fc82ee14933c2ddacab118bb8805fe2db774'
 )
 
 pkgver() {
