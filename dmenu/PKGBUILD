@@ -44,8 +44,8 @@ prepare() {
   echo "CFLAGS+=${CFLAGS}" >> config.mk
   echo "LDFLAGS+=${LDFLAGS}" >> config.mk
   
-  #patch -p1 -i "$srcdir/dmenu-center-5.2.diff"
-  #patch -p1 -i "$srcdir/dmenu-border-5.2.diff"
+  patch -p1 -i "$srcdir/dmenu-center-5.2.diff"
+  patch -p1 -i "$srcdir/dmenu-border-5.2.diff"
   patch -p1 -i "$srcdir/dmenu-mousesupport-5.2.diff"
   patch -p1 -i "$srcdir/dmenu-mousesupport-motion-5.2.diff"
   patch -p1 -i "$srcdir/dmenu-numbers-5.2.diff"
