@@ -1,0 +1,69 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+# Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
+# Contributor: Thorsten Töpper <atsutane-tu@freethoughts.de>
+# Contributor: Thayer Williams <thayer@archlinux.org>
+# Contributor: Jeff 'codemac' Mickey <jeff@archlinux.org>
+
+# Added some patches
+
+pkgname=dmenu
+pkgver=5.2
+pkgrel=1
+pkgdesc='Generic menu for X'
+url='https://tools.suckless.org/dmenu/'
+arch=('x86_64')
+license=('MIT')
+depends=('sh' 'glibc' 'coreutils' 'libx11' 'libxinerama' 'libxft' 'freetype2' 'fontconfig' 'libfontconfig.so')
+source=(https://dl.suckless.org/tools/dmenu-${pkgver}.tar.gz
+        "dmenu-numbers-5.2.diff"
+        "dmenu-center-5.2.diff"
+        "dmenu-border-5.2.diff"
+        "dmenu-mousesupport-5.2.diff"
+        "dmenu-mousesupport-motion-5.2.diff"
+        "dmenu-linesbelowprompt-and-fullwidth-5.2.diff")
+sha512sums=('7be9bb76b11225ec86a30e643e9b884f6d13af581526085212cb7401383d448a72fe4dffc3ce84ffb8319dbf36ca8384597a89070cd27d39d5618f239a2da6e3'
+            'e70ce823424ff8e4bb0d38210f4b2ea47f6b42471d5848c94293573e3cbc8a14139316396edd812ce26cff823c3633ccba555179c99cdba25ee0454f0bef8844'
+            'ae35850a621b688b28ae916d136a7af9290e27b860c364d2623fd3ba1e9809ccacede09408b611a4731db07a912f9f675cf9919ab76b396c438f33276cfb61ca'
+            '93b12293c4d2cbe2a69b0746c887c63672ce12213d62c39cdab2e68578e3e6ebf2cd7ef27b1387df2fb83d78de324fc48fdc44b49f47ee0b8e59154d3c1256a3'
+            'b68d6de760aed617bff415924f60e890225c9bae8e09af04c83158b7f3fa289e39c15f0315e21802b3a00c4f4981eeeb66167c2c6dd08d5e767f5758a24c0fb1'
+            '7cc4d3a6b8e1c28d741f0efebf11012421953b342d1e0ec156b18a7a59ed35603568628861261a04605df700e194ac61be181e16230531033cbd69d8fda8b316'
+            'a04be3b77a200101cf740f881858c41ed57056a04779652f8e0127bdd58ef267e662dac3ba34113211e144a96541b0be160fbcba34b143a63042f6871bba4846')
+b2sums=('f827f0d0d935f9da8103dbb73ed8b67818f1213d2f8e5a406de5e8c9496ea0479b4ccb50d3a29004abc1e4e679cac177163c02458ed144d323bb50fc120f936d'
+        'd8e9f4f1ad15e767d58359ea9f4b33d2099440e46c67a85e2d114d4694ba28da7c8ceee40a218788c74c668c6b8c822246d4a66fc9f1e0daed46e9fca030999b'
+        '80c172a98636caf5d4fbfb5e73e1eceba39e5e85cf4dd335888221af2b1f2866e1f9dc02a689aef2f2064cd52769ef94b826e63eca48f8f5b731dc4993dc8ecd'
+        'ab284713b29bd70d2df9748fd3781502f6043adc23478716701fed25710bcd9af65c09f4880606df81b378fc39020768446da0abd76b932a4fb3c7c6577f535e'
+        '83ef6aa842b54115124b52ef0521584f5edc752cc7ec601f47410896c3afab2351be204fd4aebac28ddc7715bbe79d191043d134be20352a9a9c99e6f00f355f'
+        'c8dcd8a1233ab79e1e9b69f122c462de0f82fc9f2a68579b67951dfd47477ac4c297d96645a439e13a6690092a916da80b3fa2357a8d1c09fe800754afce8956'
+        'a6d43145c4e60124f55472e78df19f764d9c110a4e94df29ae7fb5170ce0dd8d8a406c9efdd0b62d8866fac019c2ee54e4a3bb0fc0d23943981b909025c0ed94')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  echo "CPPFLAGS+=${CPPFLAGS}" >> config.mk
+  echo "CFLAGS+=${CFLAGS}" >> config.mk
+  echo "LDFLAGS+=${LDFLAGS}" >> config.mk
+  
+  patch -p1 -i "$srcdir/dmenu-center-5.2.diff"
+  patch -p1 -i "$srcdir/dmenu-border-5.2.diff"
+  patch -p1 -i "$srcdir/dmenu-mousesupport-5.2.diff"
+  patch -p1 -i "$srcdir/dmenu-mousesupport-motion-5.2.diff"
+  patch -p1 -i "$srcdir/dmenu-numbers-5.2.diff"
+  #patch -p1 -i "$srcdir/dmenu-linesbelowprompt-and-fullwidth-5.2.diff"
+}
+
+build() {
+  cd ${pkgname}-${pkgver}
+  make \
+	  X11INC=/usr/include/X11 \
+	  X11LIB=/usr/lib/X11 \
+	  FREETYPEINC=/usr/include/freetype2
+}
+
+package() {
+  cd ${pkgname}-${pkgver}
+  make PREFIX=/usr DESTDIR="${pkgdir}" install
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:
