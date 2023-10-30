@@ -1,5 +1,5 @@
 diff --git a/config.def.h b/config.def.h
-index 88ef264..cfff3e4 100644
+index 6b68b5c..3c7d9d4 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -23,3 +23,6 @@ static unsigned int lines      = 0;
@@ -10,10 +10,10 @@ index 88ef264..cfff3e4 100644
 +/* Size of the window border */
 +static unsigned int border_width = 0;
 diff --git a/dmenu.c b/dmenu.c
-index c2b1e34..ccd937b 100644
+index 29dd829..ee86d42 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -707,6 +707,10 @@ setup(void)
+@@ -698,6 +698,10 @@ setup(void)
  	win = XCreateWindow(dpy, parentwin, x, y, mw, mh, 0,
  	                    CopyFromParent, CopyFromParent, CopyFromParent,
  	                    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
@@ -24,7 +24,7 @@ index c2b1e34..ccd937b 100644
  	XSetClassHint(dpy, win, &ch);
  
  
-@@ -779,6 +783,11 @@ main(int argc, char *argv[])
+@@ -770,6 +774,11 @@ main(int argc, char *argv[])
  			colors[SchemeSel][ColFg] = argv[++i];
  		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
  			embed = argv[++i];

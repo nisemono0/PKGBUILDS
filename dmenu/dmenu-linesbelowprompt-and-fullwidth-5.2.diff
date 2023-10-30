@@ -1,8 +1,8 @@
 diff --git a/dmenu.c b/dmenu.c
-index fad3b79..7e834db 100644
+index 20182ae..7aa5e91 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -199,7 +199,7 @@ drawmenu(void)
+@@ -190,7 +190,7 @@ drawmenu(void)
  	if (lines > 0) {
  		/* draw vertical list */
  		for (item = curr; item != next; item = item->right)

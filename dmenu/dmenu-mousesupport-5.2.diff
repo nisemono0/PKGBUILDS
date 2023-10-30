@@ -1,8 +1,8 @@
 diff --git a/dmenu.c b/dmenu.c
-index ccd937b..7af33fa 100644
+index ee86d42..d58ea85 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -537,6 +537,119 @@ draw:
+@@ -528,6 +528,119 @@ draw:
  	drawmenu();
  }
  
@@ -122,7 +122,7 @@ index ccd937b..7af33fa 100644
  static void
  paste(void)
  {
-@@ -591,6 +704,9 @@ run(void)
+@@ -582,6 +695,9 @@ run(void)
  				break;
  			cleanup();
  			exit(1);
@@ -132,7 +132,7 @@ index ccd937b..7af33fa 100644
  		case Expose:
  			if (ev.xexpose.count == 0)
  				drw_map(drw, win, 0, 0, mw, mh);
-@@ -703,7 +819,8 @@ setup(void)
+@@ -694,7 +810,8 @@ setup(void)
  	/* create menu window */
  	swa.override_redirect = True;
  	swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
