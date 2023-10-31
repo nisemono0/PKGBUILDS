@@ -9,6 +9,29 @@ index 6b68b5c..3c7d9d4 100644
 +
 +/* Size of the window border */
 +static unsigned int border_width = 0;
+diff --git a/dmenu.1 b/dmenu.1
+index c036baa..2d7784b 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -20,6 +20,8 @@ dmenu \- dynamic menu
+ .IR color ]
+ .RB [ \-sf
+ .IR color ]
++.RB [ \-bw
++.IR [border_size]]
+ .RB [ \-w
+ .IR windowid ]
+ .P
+@@ -50,6 +52,9 @@ is faster, but will lock up X until stdin reaches end\-of\-file.
+ .B \-i
+ dmenu matches menu items case insensitively.
+ .TP
++.BI \-bw " border_size"
++set border size of the dmenu window
++.TP
+ .BI \-l " lines"
+ dmenu lists items vertically, with the given number of lines.
+ .TP
 diff --git a/dmenu.c b/dmenu.c
 index 29dd829..ee86d42 100644
 --- a/dmenu.c
