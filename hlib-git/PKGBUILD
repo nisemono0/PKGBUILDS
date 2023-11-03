@@ -1,6 +1,6 @@
 _pkgname=HLib
 pkgname=hlib-git
-pkgver=r64.aa32969
+pkgver=r66.774ddc5
 pkgrel=1
 pkgdesc='My local H library view/search app'
 arch=('x86_64')
