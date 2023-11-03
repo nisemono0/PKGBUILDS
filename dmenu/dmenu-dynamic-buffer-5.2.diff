@@ -1,0 +1,28 @@
+diff --git a/dmenu.c b/dmenu.c
+index 4708e46..266a556 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -358,15 +358,21 @@ movewordedge(int dir)
+ static void
+ keypress(XKeyEvent *ev)
+ {
+-	char buf[32];
++	char *buf;
++    size_t buf_size = 32;
++    buf = (char *)malloc(buf_size);
+ 	int len;
+ 	KeySym ksym;
+ 	Status status;
+ 
+-	len = XmbLookupString(xic, ev, buf, sizeof buf, &ksym, &status);
++	len = XmbLookupString(xic, ev, buf, buf_size - 1, &ksym, &status);
+ 	switch (status) {
+ 	default: /* XLookupNone, XBufferOverflow */
+ 		return;
++    case XBufferOverflow:
++        printf("reallocate buf to size: %u\n", len+1);
++        buf = realloc(buf, len + 1);
++        len = XmbLookupString(xic, ev, buf, len, &ksym, &status);
+ 	case XLookupChars:
+ 		goto insert;
+ 	case XLookupKeySym:
