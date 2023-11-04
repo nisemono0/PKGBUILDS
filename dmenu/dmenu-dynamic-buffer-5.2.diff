@@ -1,8 +1,8 @@
 diff --git a/dmenu.c b/dmenu.c
-index 4708e46..266a556 100644
+index 4708e46..8a40020 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -358,15 +358,21 @@ movewordedge(int dir)
+@@ -358,15 +358,20 @@ movewordedge(int dir)
  static void
  keypress(XKeyEvent *ev)
  {
@@ -20,7 +20,6 @@ index 4708e46..266a556 100644
  	default: /* XLookupNone, XBufferOverflow */
  		return;
 +    case XBufferOverflow:
-+        printf("reallocate buf to size: %u\n", len+1);
 +        buf = realloc(buf, len + 1);
 +        len = XmbLookupString(xic, ev, buf, len, &ksym, &status);
  	case XLookupChars:
