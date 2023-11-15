@@ -1,0 +1,13 @@
+diff --git a/dmenu.c b/dmenu.c
+index 1348d78..745b023 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -189,7 +189,7 @@ drawmenu(void)
+ 	if (lines > 0) {
+ 		/* draw vertical list */
+ 		for (item = curr; item != next; item = item->right)
+-			drawitem(item, x, y += bh, mw - x);
++			drawitem(item, x - promptw, y += bh, mw);
+ 	} else if (matches) {
+ 		/* draw horizontal list */
+ 		x += inputw;

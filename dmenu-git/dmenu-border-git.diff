@@ -1,0 +1,61 @@
+diff --git a/config.def.h b/config.def.h
+index 6b68b5c..3c7d9d4 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -23,3 +23,6 @@ static unsigned int lines      = 0;
+  * for example: " /?\"&[]"
+  */
+ static const char worddelimiters[] = " ";
++
++/* Size of the window border */
++static unsigned int border_width = 0;
+diff --git a/dmenu.1 b/dmenu.1
+index c036baa..2d7784b 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -20,6 +20,8 @@ dmenu \- dynamic menu
+ .IR color ]
+ .RB [ \-sf
+ .IR color ]
++.RB [ \-bw
++.IR [border_size]]
+ .RB [ \-w
+ .IR windowid ]
+ .P
+@@ -50,6 +52,9 @@ is faster, but will lock up X until stdin reaches end\-of\-file.
+ .B \-i
+ dmenu matches menu items case insensitively.
+ .TP
++.BI \-bw " border_size"
++set border size of the dmenu window
++.TP
+ .BI \-l " lines"
+ dmenu lists items vertically, with the given number of lines.
+ .TP
+diff --git a/dmenu.c b/dmenu.c
+index 6365364..4ddcd5a 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -702,6 +702,10 @@ setup(void)
+ 	win = XCreateWindow(dpy, root, x, y, mw, mh, 0,
+ 	                    CopyFromParent, CopyFromParent, CopyFromParent,
+ 	                    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
++	if (border_width){
++        XSetWindowBorderWidth(dpy, win, border_width);
++        XSetWindowBorder(dpy, win, scheme[SchemeSel][ColBg].pixel);
++    }
+ 	XSetClassHint(dpy, win, &ch);
+ 
+ 
+@@ -775,6 +779,11 @@ main(int argc, char *argv[])
+ 			colors[SchemeSel][ColFg] = argv[++i];
+ 		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
+ 			embed = argv[++i];
++		else if (!strcmp(argv[i], "-bw")){
++            int tmp = atoi(argv[++i]);
++            if (tmp > 0)
++                border_width = tmp;
++        }
+ 		else
+ 			usage();
+ 

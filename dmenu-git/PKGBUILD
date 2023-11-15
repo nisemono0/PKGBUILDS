@@ -1,0 +1,77 @@
+# Maintainer: éclairevoyant
+# Contributor: éclairevoyant
+# Contributor: Håvard Pettersson <mail at haavard dot me>
+# Contributor: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: T dot J dot  Townsend <blakkheim at archlinux dot org>
+# Contributor: Sergej Pupykin <pupykin dot s+arch at gmail dot com>
+# Contributor: Bartłomiej Piotrowski <bpiotrowski at archlinux dot org>
+# Contributor: Thorsten Töpper <atsutane-tu at freethoughts dot de>
+# Contributor: Thayer Williams <thayer at archlinux dot org>
+# Contributor: Jeff 'codemac' Mickey <jeff at archlinux dot org>
+
+# Edited
+
+_pkgname=dmenu
+pkgname="$_pkgname-git"
+pkgver=5.2.r7.7ab0cb5
+pkgrel=1
+pkgdesc='Generic menu for X'
+url='https://tools.suckless.org/dmenu/'
+arch=('x86_64')
+license=('MIT')
+depends=('sh' 'glibc' 'coreutils' 'libx11' 'libxinerama' 'libxft' 'freetype2' 'fontconfig' 'libfontconfig.so')
+makedepends=('git')
+provides=("$_pkgname=${pkgver%%.r*}")
+conflicts=("$_pkgname")
+source=("git+https://git.suckless.org/$_pkgname"
+        "dmenu-border-git.diff"
+        "dmenu-center-git.diff"
+        "dmenu-dynamic-buffer-git.diff"
+        "dmenu-linesbelowprompt-and-fullwidth-git.diff"
+        "dmenu-locale-mod-git.diff"
+        "dmenu-mousesupport-git.diff"
+        "dmenu-mousesupport-motion-git.diff"
+        "dmenu-numbers-git.diff"
+)
+
+b2sums=('SKIP'
+        'c1735a72ffadb8c05b31fbc28ecc1eda687cb9d2c8ff01394a7bdc663d1d45a311cbaac5cf25663c18680fbab8af5c5d54b93a5624da905d79a5f4ffc831cc66'
+        '69434f8eb2ce3c016d9052add76a843fd0ffcce8e72887824dfc93ff63907fdb2598ff8649852f1bf77c2fae33d9e503663b895f223b2745a8bc21e1cdfc462b'
+        '2c8af3c77c6dad6477906ba6d57a2f4ccf30e14e95895b1640611dcb29accf71900157a6d841bafe851e69ac18ce99d362286e14a3d7485187c550b543fd8e37'
+        'f6edfa67421aea15ba37d139fba2dfef0a7b2c9b99f681e2e7f85566c2903e319c3435e24053820cb2cbc52dac069e1a998511263109de62b2506d469c950365'
+        'b0a9e20f0ebf33387eaaab36c817299bd5cbd15d8808ec8447c33779c2206eb59d4306941268b69f402096b3e8c1c6203b57414b74d2d6d5e01e1b18a9b3730d'
+        'cd5c3e20b4bb55f36b911c89ec70ca8228d38b5d1094fbc56413a21982188a5d80c16ace70328a13173c69d6ac1f0caf60e1f049877d77e426f025d9e1c668b6'
+        'f1e6a490368af620e033a91386e4371ba522af5706309b53975f2eb7be409d286508b714581d62bf717a91b30d9436cb9bcdef5aa26b2bdaf8cf520a045e5b42'
+        'b98de06aa9467491161f0cf5fcf3a64fa262b96c5ed67eae6bfe4f5117ea274ce10abeabfa066007d68a18a67a9e3d81ec180588770b99b40a92f17a73ce88d1'
+)
+prepare() {
+  cd ${_pkgname}
+  echo "CPPFLAGS+=${CPPFLAGS}" >> config.mk
+  echo "CFLAGS+=${CFLAGS}" >> config.mk
+  echo "LDFLAGS+=${LDFLAGS}" >> config.mk
+  
+  patch -p1 -i "$srcdir/dmenu-center-git.diff"
+  patch -p1 -i "$srcdir/dmenu-border-git.diff"
+  patch -p1 -i "$srcdir/dmenu-mousesupport-git.diff"
+  patch -p1 -i "$srcdir/dmenu-mousesupport-motion-git.diff"
+  patch -p1 -i "$srcdir/dmenu-numbers-git.diff"
+  patch -p1 -i "$srcdir/dmenu-linesbelowprompt-and-fullwidth-git.diff"
+  patch -p1 -i "$srcdir/dmenu-locale-mod-git.diff"
+  patch -p1 -i "$srcdir/dmenu-dynamic-buffer-git.diff"
+}
+
+build() {
+  cd ${_pkgname}
+  make \
+	  X11INC=/usr/include/X11 \
+	  X11LIB=/usr/lib/X11 \
+	  FREETYPEINC=/usr/include/freetype2
+}
+
+package() {
+  cd ${_pkgname}
+  make PREFIX=/usr DESTDIR="${pkgdir}" install
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:

@@ -1,0 +1,115 @@
+diff --git a/config.def.h b/config.def.h
+index 3c7d9d4..57e37b8 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -26,3 +26,6 @@ static const char worddelimiters[] = " ";
+ 
+ /* Size of the window border */
+ static unsigned int border_width = 0;
++
++/* use locale modifier */
++static unsigned int locale_mod = 0;
+diff --git a/dmenu.1 b/dmenu.1
+index 2d7784b..44f0d56 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -52,6 +52,10 @@ is faster, but will lock up X until stdin reaches end\-of\-file.
+ .B \-i
+ dmenu matches menu items case insensitively.
+ .TP
++.B \-lm
++dmenu tries to set locale modifiers, this allows to type in using IMEs (like fcitx).
++This may mess with window focus.
++.TP
+ .BI \-bw " border_size"
+ set border size of the dmenu window
+ .TP
+diff --git a/dmenu.c b/dmenu.c
+index 745b023..2de5e5e 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -46,10 +46,11 @@ static struct item *items = NULL;
+ static struct item *matches, *matchend;
+ static struct item *prev, *curr, *next, *sel;
+ static int mon = -1, screen;
++static int last_revert;
+ 
+ static Atom clip, utf8;
+ static Display *dpy;
+-static Window root, parentwin, win;
++static Window root, parentwin, win, last_focus;
+ static XIC xic;
+ 
+ static Drw *drw;
+@@ -102,15 +103,27 @@ static void
+ cleanup(void)
+ {
+ 	size_t i;
+-
++    
+ 	XUngrabKey(dpy, AnyKey, AnyModifier, root);
+ 	for (i = 0; i < SchemeLast; i++)
+ 		free(scheme[i]);
+ 	for (i = 0; items && items[i].text; ++i)
+ 		free(items[i].text);
++
++
+ 	free(items);
+ 	drw_free(drw);
++    XUnmapWindow(dpy, win);
+ 	XSync(dpy, False);
++    if(locale_mod) {
++        Window new_focus;
++        int new_revert;
++        XGetInputFocus(dpy, &new_focus, &new_revert);
++        if(new_focus == root)
++            XSetInputFocus(dpy, last_focus, last_revert, CurrentTime);
++        else
++            XSetInputFocus(dpy, new_focus, new_revert, CurrentTime);
++    }
+ 	XCloseDisplay(dpy);
+ }
+ 
+@@ -735,7 +748,7 @@ run(void)
+ 	XEvent ev;
+ 
+ 	while (!XNextEvent(dpy, &ev)) {
+-		if (XFilterEvent(&ev, win))
++		if (XFilterEvent(&ev, None))
+ 			continue;
+ 		switch(ev.type) {
+ 		case DestroyNotify:
+@@ -881,6 +894,9 @@ setup(void)
+ 	                XNClientWindow, win, XNFocusWindow, win, NULL);
+ 
+ 	XMapRaised(dpy, win);
++    if(locale_mod) {
++        XSetInputFocus(dpy, win, RevertToParent, CurrentTime);
++    }
+ 	if (embed) {
+ 		XReparentWindow(dpy, win, parentwin, x, y);
+ 		XSelectInput(dpy, parentwin, FocusChangeMask | SubstructureNotifyMask);
+@@ -922,7 +938,9 @@ main(int argc, char *argv[])
+ 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
+ 			fstrncmp = strncasecmp;
+ 			fstrstr = cistrstr;
+-		} else if (i + 1 == argc)
++		} else if (!strcmp(argv[i], "-lm"))/* use locale modifiers */
++            locale_mod = 1;
++        else if (i + 1 == argc)
+ 			usage();
+ 		/* these options take one argument */
+ 		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
+@@ -971,6 +989,12 @@ main(int argc, char *argv[])
+ 	if (pledge("stdio rpath", NULL) == -1)
+ 		die("pledge");
+ #endif
++    if(locale_mod) {
++        if(!XSetLocaleModifiers("")){
++            fputs("warning: no locale modifiers support\n", stderr);
++        }
++        XGetInputFocus(dpy, &last_focus, &last_revert);
++    }
+ 
+ 	if (fast && !isatty(0)) {
+ 		grabkeyboard();
