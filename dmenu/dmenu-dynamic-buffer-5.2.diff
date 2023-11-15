@@ -1,5 +1,5 @@
 diff --git a/dmenu.c b/dmenu.c
-index 4708e46..8a40020 100644
+index 4708e46..64208aa 100644
 --- a/dmenu.c
 +++ b/dmenu.c
 @@ -358,15 +358,20 @@ movewordedge(int dir)
@@ -25,3 +25,11 @@ index 4708e46..8a40020 100644
  	case XLookupChars:
  		goto insert;
  	case XLookupKeySym:
+@@ -559,6 +564,7 @@ insert:
+ 	}
+ 
+ draw:
++    free(buf);
+ 	drawmenu();
+ }
+ 
