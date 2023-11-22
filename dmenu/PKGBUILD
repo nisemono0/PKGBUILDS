@@ -24,6 +24,7 @@ source=(https://dl.suckless.org/tools/dmenu-${pkgver}.tar.gz
         "dmenu-locale-mod-5.2.diff"
         "dmenu-mousesupport-5.2.diff"
         "dmenu-mousesupport-motion-5.2.diff"
+        "dmenu-movepointer-5.2.diff"
         "dmenu-numbers-5.2.diff"
         "dmenu-preselect-5.2.diff"
 )
@@ -36,6 +37,7 @@ b2sums=('f827f0d0d935f9da8103dbb73ed8b67818f1213d2f8e5a406de5e8c9496ea0479b4ccb5
         '5b9b29d5fa2519d9f19108f5412d0fa45c480ccc6f2c4ba252b103703e7547dc0039358035ac1eff5da129b0103ba63fae9b20dbe9b579ab7232b5b82f0f1cbe'
         'ae663382cae3562c1c6de738588b10e8d90a7e9b02cc8bcb18e31f9668629f431557e050f512ea0feab2add39ef20ccab8a40c45e2371efd026ce9366b011518'
         'aec5f5c10a122201dae8d3ab1cd856b362fa18fb575aeb27afa7056ee94b9ebcbbc09f12607583873360b9e6fdac7a01378b52bb006f9d983dd0a98be01387e5'
+        '35964af9b7b174b5fc97e45c7770d527ce504fb74464bd768deeae02995d692127b04d92de371ccb2cdbff8e988809ab40651b3a777b501bea7e51bffb2ca73e'
         '3292ae62790a6110c33d13eae0c00b93df2bb7a13b40b9732a0369f7de2b1010d838eaf6707e50bd87e2c407e81518d5a586d4305b4c58d249d4da2c27c3f338'
         '079f153ea14c0d73f2f5c1ae2a7503a42cee5c89c70195f8fb238113b35ff79b47a769cba58e79dd6885dca947bdefdb4ab256c78fdbdd7461eb38693ed1be44'
 )
@@ -55,6 +57,7 @@ prepare() {
   patch -p1 -i "$srcdir/dmenu-locale-mod-5.2.diff"
   patch -p1 -i "$srcdir/dmenu-dynamic-buffer-5.2.diff"
   patch -p1 -i "$srcdir/dmenu-preselect-5.2.diff"
+  patch -p1 -i "$srcdir/dmenu-movepointer-5.2.diff"
 }
 
 build() {

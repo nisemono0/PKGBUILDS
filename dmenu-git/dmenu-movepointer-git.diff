@@ -1,0 +1,86 @@
+diff --git a/config.def.h b/config.def.h
+index 6674f82..fde9c85 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -32,3 +32,8 @@ static unsigned int border_width = 0;
+ 
+ /* use locale modifier */
+ static unsigned int locale_mod = 0;
++
++/* -mp option; automatically move pointer to menu */
++static int move_pointer = 0;
++static int move_steps = 200;	/* steps to make until getting to window */
++static int move_sleep = 100000;	/* sleep between steps in ns */
+\ No newline at end of file
+diff --git a/dmenu.1 b/dmenu.1
+index a785282..f033f74 100644
+--- a/dmenu.1
++++ b/dmenu.1
+@@ -58,6 +58,9 @@ dmenu matches menu items case insensitively.
+ dmenu tries to set locale modifiers, this allows to type in using IMEs (like fcitx).
+ This may mess with window focus.
+ .TP
++.B \-mp
++automatically moves the pointer to the dmenu window
++.TP
+ .BI \-bw " border_size"
+ set border size of the dmenu window
+ .TP
+diff --git a/dmenu.c b/dmenu.c
+index 8f9f601..0a45026 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -792,6 +792,28 @@ run(void)
+ 	}
+ }
+ 
++static void
++move_pointer_to_win()
++{
++	Window root_ret, child_ret;
++	int rx, ry, wx, wy, ex, ey, nx, ny;
++	unsigned int mask_ret;
++	struct timespec ts = { .tv_sec = 0, .tv_nsec = move_sleep };
++
++	XQueryPointer(dpy, win, &root_ret, &child_ret, &rx, &ry, &wx, &wy, &mask_ret);
++
++	ex = lines > 0 ? inputw + lrpad - wx : promptw + inputw + lrpad - wx;
++	ey = lines > 0 ? bh + bh / 2 - wy : bh / 2 - wy;
++
++	for (int step = 1; step <= move_steps; step++) {
++		nx = wx + ex * step / move_steps;
++		ny = wy + ey * step / move_steps;
++		nanosleep(&ts, NULL);
++		XWarpPointer(dpy, None, win, 0, 0, 0, 0, nx, ny);
++		XFlush(dpy);
++	}
++}
++
+ static void
+ setup(void)
+ {
+@@ -908,7 +930,10 @@ setup(void)
+ 	XMapRaised(dpy, win);
+     if(locale_mod) {
+         XSetInputFocus(dpy, win, RevertToParent, CurrentTime);
+-    }
++	}
++	if (move_pointer) {
++		move_pointer_to_win();
++	}
+ 	if (embed) {
+ 		XReparentWindow(dpy, win, parentwin, x, y);
+ 		XSelectInput(dpy, parentwin, FocusChangeMask | SubstructureNotifyMask);
+@@ -951,8 +976,10 @@ main(int argc, char *argv[])
+ 			fstrncmp = strncasecmp;
+ 			fstrstr = cistrstr;
+ 		} else if (!strcmp(argv[i], "-lm"))/* use locale modifiers */
+-            locale_mod = 1;
+-        else if (i + 1 == argc)
++			locale_mod = 1;
++		else if (!strcmp(argv[i], "-mp"))  /* move pointer to dmenu window */
++			move_pointer = 1;
++		else if (i + 1 == argc)
+ 			usage();
+ 		/* these options take one argument */
+ 		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
