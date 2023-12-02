@@ -27,10 +27,10 @@ index a785282..f033f74 100644
  set border size of the dmenu window
  .TP
 diff --git a/dmenu.c b/dmenu.c
-index 9552b4c..1a117c1 100644
+index 9552b4c..2f441df 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -788,6 +788,28 @@ run(void)
+@@ -788,6 +788,30 @@ run(void)
  	}
  }
  
@@ -40,12 +40,14 @@ index 9552b4c..1a117c1 100644
 +	Window root_ret, child_ret;
 +	int rx, ry, wx, wy, ex, ey, nx, ny;
 +	unsigned int mask_ret;
++    int index_on_page = preselected % lines + 1;
++
 +	struct timespec ts = { .tv_sec = 0, .tv_nsec = move_sleep };
 +
 +	XQueryPointer(dpy, win, &root_ret, &child_ret, &rx, &ry, &wx, &wy, &mask_ret);
 +
 +	ex = lines > 0 ? inputw + lrpad - wx : promptw + inputw + lrpad - wx;
-+	ey = lines > 0 ? bh + bh / 2 - wy : bh / 2 - wy;
++	ey = lines > 0 ? (bh * index_on_page) + bh / 2 - wy : bh / 2 - wy;
 +
 +	for (int step = 1; step <= move_steps; step++) {
 +		nx = wx + ex * step / move_steps;
@@ -59,7 +61,7 @@ index 9552b4c..1a117c1 100644
  static void
  setup(void)
  {
-@@ -904,7 +926,10 @@ setup(void)
+@@ -904,7 +928,10 @@ setup(void)
  	XMapRaised(dpy, win);
      if(locale_mod) {
          XSetInputFocus(dpy, win, RevertToParent, CurrentTime);
@@ -71,7 +73,7 @@ index 9552b4c..1a117c1 100644
  	if (embed) {
  		XSelectInput(dpy, parentwin, FocusChangeMask | SubstructureNotifyMask);
  		if (XQueryTree(dpy, parentwin, &dw, &w, &dws, &du) && dws) {
-@@ -946,8 +971,10 @@ main(int argc, char *argv[])
+@@ -946,8 +973,10 @@ main(int argc, char *argv[])
  			fstrncmp = strncasecmp;
  			fstrstr = cistrstr;
  		} else if (!strcmp(argv[i], "-lm"))/* use locale modifiers */
