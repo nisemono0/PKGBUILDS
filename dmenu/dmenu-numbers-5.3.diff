@@ -1,17 +1,17 @@
 diff --git a/dmenu.c b/dmenu.c
-index 2fbae76..20182ae 100644
+index dcbc78d..1348d78 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -24,6 +24,8 @@
+@@ -23,6 +23,8 @@
+ #define INTERSECT(x,y,w,h,r)  (MAX(0, MIN((x)+(w),(r).x_org+(r).width)  - MAX((x),(r).x_org)) \
                               * MAX(0, MIN((y)+(h),(r).y_org+(r).height) - MAX((y),(r).y_org)))
- #define LENGTH(X)             (sizeof X / sizeof X[0])
  #define TEXTW(X)              (drw_fontset_getwidth(drw, (X)) + lrpad)
 +#define NUMBERSMAXDIGITS      100
 +#define NUMBERSBUFSIZE        (NUMBERSMAXDIGITS * 2) + 1
  
  /* enums */
  enum { SchemeNorm, SchemeSel, SchemeOut, SchemeLast }; /* color schemes */
-@@ -34,6 +36,7 @@ struct item {
+@@ -33,6 +35,7 @@ struct item {
  	int out;
  };
  
@@ -19,7 +19,7 @@ index 2fbae76..20182ae 100644
  static char text[BUFSIZ] = "";
  static char *embed;
  static int bh, mw, mh;
-@@ -86,7 +89,7 @@ calcoffsets(void)
+@@ -85,7 +88,7 @@ calcoffsets(void)
  	if (lines > 0)
  		n = lines * bh;
  	else
@@ -28,7 +28,7 @@ index 2fbae76..20182ae 100644
  	/* calculate which items will begin the next page and previous page */
  	for (i = 0, next = curr; next; next = next->right)
  		if ((i += (lines > 0) ? bh : textw_clamp(next->text, n)) > n)
-@@ -143,6 +146,21 @@ drawitem(struct item *item, int x, int y, int w)
+@@ -142,6 +145,21 @@ drawitem(struct item *item, int x, int y, int w)
  	return drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);
  }
  
@@ -50,7 +50,7 @@ index 2fbae76..20182ae 100644
  static void
  drawmenu(void)
  {
-@@ -168,6 +186,7 @@ drawmenu(void)
+@@ -167,6 +185,7 @@ drawmenu(void)
  		drw_rect(drw, x + curpos, 2, 2, bh - 4, 1, 0);
  	}
  
@@ -58,7 +58,7 @@ index 2fbae76..20182ae 100644
  	if (lines > 0) {
  		/* draw vertical list */
  		for (item = curr; item != next; item = item->right)
-@@ -182,13 +201,15 @@ drawmenu(void)
+@@ -181,13 +200,15 @@ drawmenu(void)
  		}
  		x += w;
  		for (item = curr; item != next; item = item->right)

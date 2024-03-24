@@ -1,17 +1,17 @@
 diff --git a/dmenu.c b/dmenu.c
-index 4708e46..64208aa 100644
+index 2de5e5e..0489628 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -358,15 +358,20 @@ movewordedge(int dir)
+@@ -357,15 +357,20 @@ movewordedge(int dir)
  static void
  keypress(XKeyEvent *ev)
  {
--	char buf[32];
+-	char buf[64];
 +	char *buf;
-+    size_t buf_size = 32;
++    size_t buf_size = 64;
 +    buf = (char *)malloc(buf_size);
  	int len;
- 	KeySym ksym;
+ 	KeySym ksym = NoSymbol;
  	Status status;
  
 -	len = XmbLookupString(xic, ev, buf, sizeof buf, &ksym, &status);
@@ -22,10 +22,10 @@ index 4708e46..64208aa 100644
 +    case XBufferOverflow:
 +        buf = realloc(buf, len + 1);
 +        len = XmbLookupString(xic, ev, buf, len, &ksym, &status);
- 	case XLookupChars:
+ 	case XLookupChars: /* composed string from input method */
  		goto insert;
  	case XLookupKeySym:
-@@ -559,6 +564,7 @@ insert:
+@@ -558,6 +563,7 @@ insert:
  	}
  
  draw:

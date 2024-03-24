@@ -25,10 +25,10 @@ index 2d7784b..44f0d56 100644
  set border size of the dmenu window
  .TP
 diff --git a/dmenu.c b/dmenu.c
-index 7aa5e91..4708e46 100644
+index 745b023..2de5e5e 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -47,10 +47,11 @@ static struct item *items = NULL;
+@@ -46,10 +46,11 @@ static struct item *items = NULL;
  static struct item *matches, *matchend;
  static struct item *prev, *curr, *next, *sel;
  static int mon = -1, screen;
@@ -41,7 +41,7 @@ index 7aa5e91..4708e46 100644
  static XIC xic;
  
  static Drw *drw;
-@@ -103,15 +104,27 @@ static void
+@@ -102,15 +103,27 @@ static void
  cleanup(void)
  {
  	size_t i;
@@ -70,7 +70,7 @@ index 7aa5e91..4708e46 100644
  	XCloseDisplay(dpy);
  }
  
-@@ -731,7 +744,7 @@ run(void)
+@@ -735,7 +748,7 @@ run(void)
  	XEvent ev;
  
  	while (!XNextEvent(dpy, &ev)) {
@@ -79,7 +79,7 @@ index 7aa5e91..4708e46 100644
  			continue;
  		switch(ev.type) {
  		case DestroyNotify:
-@@ -877,6 +890,9 @@ setup(void)
+@@ -881,6 +894,9 @@ setup(void)
  	                XNClientWindow, win, XNFocusWindow, win, NULL);
  
  	XMapRaised(dpy, win);
@@ -87,9 +87,9 @@ index 7aa5e91..4708e46 100644
 +        XSetInputFocus(dpy, win, RevertToParent, CurrentTime);
 +    }
  	if (embed) {
+ 		XReparentWindow(dpy, win, parentwin, x, y);
  		XSelectInput(dpy, parentwin, FocusChangeMask | SubstructureNotifyMask);
- 		if (XQueryTree(dpy, parentwin, &dw, &w, &dws, &du) && dws) {
-@@ -917,7 +933,9 @@ main(int argc, char *argv[])
+@@ -922,7 +938,9 @@ main(int argc, char *argv[])
  		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
  			fstrncmp = strncasecmp;
  			fstrstr = cistrstr;
@@ -100,7 +100,7 @@ index 7aa5e91..4708e46 100644
  			usage();
  		/* these options take one argument */
  		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
-@@ -966,6 +984,12 @@ main(int argc, char *argv[])
+@@ -971,6 +989,12 @@ main(int argc, char *argv[])
  	if (pledge("stdio rpath", NULL) == -1)
  		die("pledge");
  #endif

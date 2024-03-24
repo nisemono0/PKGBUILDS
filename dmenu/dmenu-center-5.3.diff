@@ -26,10 +26,10 @@ index 323f93c..c036baa 100644
  dmenu grabs the keyboard before reading stdin if not reading from a tty. This
  is faster, but will lock up X until stdin reaches end\-of\-file.
 diff --git a/dmenu.c b/dmenu.c
-index 7cf253b..29dd829 100644
+index 40f93e0..6365364 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -632,6 +632,7 @@ setup(void)
+@@ -636,6 +636,7 @@ setup(void)
  	bh = drw->fonts->h + 2;
  	lines = MAX(lines, 0);
  	mh = (lines + 1) * bh;
@@ -37,7 +37,7 @@ index 7cf253b..29dd829 100644
  #ifdef XINERAMA
  	i = 0;
  	if (parentwin == root && (info = XineramaQueryScreens(dpy, &n))) {
-@@ -658,9 +659,16 @@ setup(void)
+@@ -662,9 +663,16 @@ setup(void)
  				if (INTERSECT(x, y, 1, 1, info[i]) != 0)
  					break;
  
@@ -57,7 +57,7 @@ index 7cf253b..29dd829 100644
  		XFree(info);
  	} else
  #endif
-@@ -668,9 +676,16 @@ setup(void)
+@@ -672,9 +680,16 @@ setup(void)
  		if (!XGetWindowAttributes(dpy, parentwin, &wa))
  			die("could not get embedding window attributes: 0x%lx",
  			    parentwin);
@@ -77,7 +77,7 @@ index 7cf253b..29dd829 100644
  	}
  	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
  	inputw = mw / 3; /* input width: ~33% of monitor width */
-@@ -729,6 +744,8 @@ main(int argc, char *argv[])
+@@ -734,6 +749,8 @@ main(int argc, char *argv[])
  			topbar = 0;
  		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
  			fast = 1;

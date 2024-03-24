@@ -36,10 +36,10 @@ index 44f0d56..a785282 100644
  dmenu is completely controlled by the keyboard.  Items are selected using the
  arrow keys, page up, page down, home, and end.
 diff --git a/dmenu.c b/dmenu.c
-index 64208aa..9552b4c 100644
+index 0489628..8f9f601 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -872,6 +872,12 @@ setup(void)
+@@ -876,6 +876,12 @@ setup(void)
  	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
  	inputw = mw / 3; /* input width: ~33% of monitor width */
  	match();
@@ -52,7 +52,7 @@ index 64208aa..9552b4c 100644
  
  	/* create menu window */
  	swa.override_redirect = True;
-@@ -962,6 +968,11 @@ main(int argc, char *argv[])
+@@ -967,6 +973,11 @@ main(int argc, char *argv[])
  			colors[SchemeSel][ColFg] = argv[++i];
  		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
  			embed = argv[++i];

@@ -1,8 +1,8 @@
 diff --git a/dmenu.c b/dmenu.c
-index d58ea85..2fbae76 100644
+index 19160c8..dcbc78d 100644
 --- a/dmenu.c
 +++ b/dmenu.c
-@@ -641,6 +641,29 @@ buttonpress(XEvent *e)
+@@ -640,6 +640,29 @@ buttonpress(XEvent *e)
  	}
  }
  
@@ -32,7 +32,7 @@ index d58ea85..2fbae76 100644
  static void
  paste(void)
  {
-@@ -698,6 +721,9 @@ run(void)
+@@ -702,6 +725,9 @@ run(void)
  		case ButtonPress:
  			buttonpress(&ev);
  			break;
@@ -42,12 +42,12 @@ index d58ea85..2fbae76 100644
  		case Expose:
  			if (ev.xexpose.count == 0)
  				drw_map(drw, win, 0, 0, mw, mh);
-@@ -811,7 +837,7 @@ setup(void)
+@@ -815,7 +841,7 @@ setup(void)
  	swa.override_redirect = True;
  	swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
  	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask |
 -	                 ButtonPressMask;
 +	                 ButtonPressMask | PointerMotionMask;
- 	win = XCreateWindow(dpy, parentwin, x, y, mw, mh, 0,
+ 	win = XCreateWindow(dpy, root, x, y, mw, mh, 0,
  	                    CopyFromParent, CopyFromParent, CopyFromParent,
  	                    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
