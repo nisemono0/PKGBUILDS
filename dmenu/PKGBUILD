@@ -10,13 +10,14 @@
 
 pkgname=dmenu
 pkgver=5.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Generic menu for X'
 url='https://tools.suckless.org/dmenu/'
 arch=('x86_64')
 license=('MIT')
+makedepends=('git')
 depends=('sh' 'glibc' 'coreutils' 'libx11' 'libxinerama' 'libxft' 'freetype2' 'fontconfig' 'libfontconfig.so')
-source=(https://dl.suckless.org/tools/dmenu-${pkgver}.tar.gz
+source=("git+https://git.suckless.org/dmenu#tag=${pkgver}"
         "dmenu-border-5.3.diff"
         "dmenu-center-5.3.diff"
         "dmenu-dynamic-buffer-5.3.diff"
@@ -29,7 +30,7 @@ source=(https://dl.suckless.org/tools/dmenu-${pkgver}.tar.gz
         "dmenu-preselect-5.3.diff"
 )
 
-b2sums=('fd76b0b11a153f98dd58ec888820bc8a0ebc67f814cdf2d13a35ea3addcc3ad423bb9b2f4f73897cf6293e61a507900e7b7fec65e4f0acd15cc8e425f5506faa'
+b2sums=('6da7112a8975c152038f7694f1a658674f92c2d5a9340f97e8b64430a2fce612c87effd361078b66ce77510d6bb6478c47ea3b1d6ee0adfafa1e8c0d62f1adb5'
         'c1735a72ffadb8c05b31fbc28ecc1eda687cb9d2c8ff01394a7bdc663d1d45a311cbaac5cf25663c18680fbab8af5c5d54b93a5624da905d79a5f4ffc831cc66'
         '69434f8eb2ce3c016d9052add76a843fd0ffcce8e72887824dfc93ff63907fdb2598ff8649852f1bf77c2fae33d9e503663b895f223b2745a8bc21e1cdfc462b'
         '2c8af3c77c6dad6477906ba6d57a2f4ccf30e14e95895b1640611dcb29accf71900157a6d841bafe851e69ac18ce99d362286e14a3d7485187c550b543fd8e37'
@@ -43,7 +44,7 @@ b2sums=('fd76b0b11a153f98dd58ec888820bc8a0ebc67f814cdf2d13a35ea3addcc3ad423bb9b2
 )
 
 prepare() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   echo "CPPFLAGS+=${CPPFLAGS}" >> config.mk
   echo "CFLAGS+=${CFLAGS}" >> config.mk
   echo "LDFLAGS+=${LDFLAGS}" >> config.mk
@@ -61,7 +62,7 @@ prepare() {
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   make \
 	  X11INC=/usr/include/X11 \
 	  X11LIB=/usr/lib/X11 \
@@ -69,7 +70,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${pkgname}
   make PREFIX=/usr DESTDIR="${pkgdir}" install
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
