@@ -5,7 +5,7 @@
 
 _pkgname=transformers_ocr
 pkgname=transformers_ocr-git
-pkgver=r101.bdbee13
+pkgver=r102.c5ead66
 pkgrel=1
 pkgdesc="An OCR tool for manga using maim with Transformers. (Patched to work with scrot)"
 arch=(any)
@@ -14,7 +14,7 @@ license=("GPL3")
 
 source=(
     "git+${url}"
-    "SCROT_PATCH.diff"
+    "scrot-freeze.diff"
 )
 
 depends=('python' 'python-pip' 'libnotify')
@@ -36,7 +36,7 @@ provides=("transformers_ocr")
 
 sha256sums=(
     'SKIP'
-    '05a94716f35b2d557a2b1631df36fc82ee14933c2ddacab118bb8805fe2db774'
+    '6d55ab26c88ed82b2e5edd155b923396219504415af2ed4500a6e4dc92d02941'
 )
 
 pkgver() {
@@ -47,7 +47,7 @@ pkgver() {
 
 prepare() {
     cd -- "${_pkgname}"
-    patch --strip=1 -u --input="${srcdir}/SCROT_PATCH.diff" "src/transformers_ocr.py"
+    patch --strip=1 -u --input="${srcdir}/scrot-freeze.diff" "src/transformers_ocr.py"
 }
 
 package() {
