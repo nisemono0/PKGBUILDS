@@ -1,26 +1,27 @@
 _pkgname=Overmix
 pkgname=overmix-git
-pkgver=r871.ca76123
+pkgver=r893.2e07c91
 pkgrel=1
 pkgdesc='Automatic anime screenshot stitching in high quality'
 arch=('x86_64')
 url='https://github.com/spillerrec/Overmix'
 license=('GPL3')
 depends=(
-  'qt5-base'
-  'qt5-x11extras'
-  'ffmpeg'
-  'zlib'
-  'xz'
-  'libpng'
-  'libjpeg'
-  'libraw'
-  'fftw'
-  'pugixml'
-  'lcms2'
-  'eigen'
-  'qcustomplot'
-  'libxcb'
+    'qt5-base'
+    'qt5-x11extras'
+    'ffmpeg'
+    'zlib'
+    'xz'
+    'libpng'
+    'libjpeg'
+    'libraw'
+    'fftw'
+    'pugixml'
+    'lcms2'
+    'eigen'
+    'qcustomplot'
+    'libxcb'
+    'libwgpu-native'
 )
 conflicts=("overmix")
 provides=("overmix")
@@ -45,7 +46,9 @@ prepare() {
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_C_FLAGS="$CFLAGS" \
         -DCMAKE_CXX_FLAGS="$CXXFLAGS" \
-        -DCMAKE_INSTALL_PREFIX=/usr
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DWEBGPU_LIBRARY=/usr/lib/libwgpu_native.so \
+        -DWEBGPU_INCLUDE_DIR=/usr/include/webgpu
 }
 
 build() {
