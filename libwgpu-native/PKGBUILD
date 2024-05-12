@@ -28,10 +28,6 @@ build() {
 }
 
 package() {
-    #$srcdir/$_pkgname/target/release/libwgpu_native.so
-    #$srcdir/$_pkgname/ffi/webgpu-headers/webgpu.h
-    #$srcdir/$_pkgname/ffi/wgpu.h
-
     # lib
     install -Dm 755 -t "$pkgdir/usr/lib/" "$srcdir/$_pkgname/target/release/libwgpu_native.so"
     # include
