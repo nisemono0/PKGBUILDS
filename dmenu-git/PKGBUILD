@@ -13,7 +13,7 @@
 
 _pkgname=dmenu
 pkgname="$_pkgname-git"
-pkgver=5.2.r7.7ab0cb5
+pkgver=r613.7be720c
 pkgrel=1
 pkgdesc='Generic menu for X'
 url='https://tools.suckless.org/dmenu/'
@@ -48,6 +48,13 @@ b2sums=('SKIP'
         'b98de06aa9467491161f0cf5fcf3a64fa262b96c5ed67eae6bfe4f5117ea274ce10abeabfa066007d68a18a67a9e3d81ec180588770b99b40a92f17a73ce88d1'
         'd04156981fef019cb72c386ce070266b45a30042f9e9f3b4971a34f20f282468b9d95ffd2e1da6a43906ab2973adc5c483b073cd4b26c96401ed4e2a6d31d121'
 )
+
+pkgver() {
+  cd $_pkgname
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  exit
+}
+
 
 prepare() {
   cd ${_pkgname}
