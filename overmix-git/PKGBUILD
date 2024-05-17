@@ -1,6 +1,6 @@
 _pkgname=Overmix
 pkgname=overmix-git
-pkgver=r893.2e07c91
+pkgver=r896.ebc2d31
 pkgrel=1
 pkgdesc='Automatic anime screenshot stitching in high quality'
 arch=('x86_64')
