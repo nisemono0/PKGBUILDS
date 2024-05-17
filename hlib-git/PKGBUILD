@@ -12,7 +12,7 @@ depends=(
 )
 conflicts=("hlib-git")
 provides=("hlib-git")
-makedepends=('make' 'qt5-base')
+makedepends=('make' 'qt5-base' 'git')
 
 source=("git+${url}")
 
@@ -21,7 +21,6 @@ sha256sums=('SKIP')
 pkgver() {
 	cd $_pkgname
 	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-    exit
 }
 
 prepare() {

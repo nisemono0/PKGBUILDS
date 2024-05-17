@@ -1,36 +1,31 @@
-# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
-# Maintainer: T.J. Townsend <blakkheim@archlinux.org>
-# Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
-# Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
-# Contributor: Thorsten Töpper <atsutane-tu@freethoughts.de>
-# Contributor: Thayer Williams <thayer@archlinux.org>
-# Contributor: Jeff 'codemac' Mickey <jeff@archlinux.org>
+# Edited
 
-# Added some patches
-
-pkgname=dmenu
-pkgver=5.3
-pkgrel=3
+_pkgname=dmenu
+pkgname="$_pkgname-nise-git"
+pkgver=r613.7be720c
+pkgrel=1
 pkgdesc='Generic menu for X'
 url='https://tools.suckless.org/dmenu/'
 arch=('x86_64')
 license=('MIT')
-makedepends=('git')
 depends=('sh' 'glibc' 'coreutils' 'libx11' 'libxinerama' 'libxft' 'freetype2' 'fontconfig' 'libfontconfig.so')
-source=("git+https://git.suckless.org/dmenu#tag=${pkgver}"
-        "dmenu-border-5.3.diff"
-        "dmenu-center-5.3.diff"
-        "dmenu-dynamic-buffer-5.3.diff"
-        "dmenu-linesbelowprompt-and-fullwidth-5.3.diff"
-        "dmenu-locale-mod-5.3.diff"
-        "dmenu-mousesupport-5.3.diff"
-        "dmenu-mousesupport-motion-5.3.diff"
-        "dmenu-movepointer-5.3.diff"
-        "dmenu-numbers-5.3.diff"
-        "dmenu-preselect-5.3.diff"
+makedepends=('git')
+provides=("$_pkgname=${pkgver%%.r*}")
+conflicts=("$_pkgname")
+source=("git+https://git.suckless.org/$_pkgname"
+        "dmenu-border-git.diff"
+        "dmenu-center-git.diff"
+        "dmenu-dynamic-buffer-git.diff"
+        "dmenu-linesbelowprompt-and-fullwidth-git.diff"
+        "dmenu-locale-mod-git.diff"
+        "dmenu-mousesupport-git.diff"
+        "dmenu-mousesupport-motion-git.diff"
+        "dmenu-movepointer-git.diff"
+        "dmenu-numbers-git.diff"
+        "dmenu-preselect-git.diff"
 )
 
-b2sums=('6da7112a8975c152038f7694f1a658674f92c2d5a9340f97e8b64430a2fce612c87effd361078b66ce77510d6bb6478c47ea3b1d6ee0adfafa1e8c0d62f1adb5'
+b2sums=('SKIP'
         'c1735a72ffadb8c05b31fbc28ecc1eda687cb9d2c8ff01394a7bdc663d1d45a311cbaac5cf25663c18680fbab8af5c5d54b93a5624da905d79a5f4ffc831cc66'
         '69434f8eb2ce3c016d9052add76a843fd0ffcce8e72887824dfc93ff63907fdb2598ff8649852f1bf77c2fae33d9e503663b895f223b2745a8bc21e1cdfc462b'
         '2c8af3c77c6dad6477906ba6d57a2f4ccf30e14e95895b1640611dcb29accf71900157a6d841bafe851e69ac18ce99d362286e14a3d7485187c550b543fd8e37'
@@ -43,26 +38,32 @@ b2sums=('6da7112a8975c152038f7694f1a658674f92c2d5a9340f97e8b64430a2fce612c87effd
         'd04156981fef019cb72c386ce070266b45a30042f9e9f3b4971a34f20f282468b9d95ffd2e1da6a43906ab2973adc5c483b073cd4b26c96401ed4e2a6d31d121'
 )
 
+pkgver() {
+  cd $_pkgname
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+
 prepare() {
-  cd ${pkgname}
+  cd ${_pkgname}
   echo "CPPFLAGS+=${CPPFLAGS}" >> config.mk
   echo "CFLAGS+=${CFLAGS}" >> config.mk
   echo "LDFLAGS+=${LDFLAGS}" >> config.mk
   
-  patch -p1 -i "$srcdir/dmenu-center-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-border-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-mousesupport-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-mousesupport-motion-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-numbers-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-linesbelowprompt-and-fullwidth-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-locale-mod-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-dynamic-buffer-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-preselect-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-movepointer-5.3.diff"
+  patch -p1 -i "$srcdir/dmenu-center-git.diff"
+  patch -p1 -i "$srcdir/dmenu-border-git.diff"
+  patch -p1 -i "$srcdir/dmenu-mousesupport-git.diff"
+  patch -p1 -i "$srcdir/dmenu-mousesupport-motion-git.diff"
+  patch -p1 -i "$srcdir/dmenu-numbers-git.diff"
+  patch -p1 -i "$srcdir/dmenu-linesbelowprompt-and-fullwidth-git.diff"
+  patch -p1 -i "$srcdir/dmenu-locale-mod-git.diff"
+  patch -p1 -i "$srcdir/dmenu-dynamic-buffer-git.diff"
+  patch -p1 -i "$srcdir/dmenu-preselect-git.diff"
+  patch -p1 -i "$srcdir/dmenu-movepointer-git.diff"
 }
 
 build() {
-  cd ${pkgname}
+  cd ${_pkgname}
   make \
 	  X11INC=/usr/include/X11 \
 	  X11LIB=/usr/lib/X11 \
@@ -70,7 +71,7 @@ build() {
 }
 
 package() {
-  cd ${pkgname}
+  cd ${_pkgname}
   make PREFIX=/usr DESTDIR="${pkgdir}" install
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }

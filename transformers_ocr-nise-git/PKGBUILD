@@ -4,7 +4,7 @@
 # Patched to work with scrot and uses the latest git version
 
 _pkgname=transformers_ocr
-pkgname=transformers_ocr-git
+pkgname=transformers_ocr-nise-git
 pkgver=r102.c5ead66
 pkgrel=1
 pkgdesc="An OCR tool for manga using maim with Transformers. (Patched to work with scrot)"
@@ -17,6 +17,7 @@ source=(
     "scrot-freeze.diff"
 )
 
+makedepends=('git')
 depends=('python' 'python-pip' 'libnotify')
 optdepends=(
      'maim: taking screenshots on Xorg'
@@ -42,7 +43,6 @@ sha256sums=(
 pkgver() {
     cd $_pkgname
     printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-    exit
 }
 
 prepare() {
