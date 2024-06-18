@@ -1,7 +1,7 @@
 # Maintainer: John Gerritse <tyrannis dot hawk at gmail dot com>
 pkgname=python-pysubs2
 _name=${pkgname#python-}
-pkgver=1.6.1
+pkgver=1.7.2
 pkgrel=1
 pkgdesc='A Python library for editing subtitle files'
 arch=(any)
@@ -10,7 +10,7 @@ license=(MIT)
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-sha256sums=('0261611e71735ff7763972c519c72593c8063efcb9039c54af65f31b81cec116')
+sha256sums=('b708904269cb252dbc51de75a372e04ab00c368939bb8220f7b0f940d978725e')
 
 build() {
     cd "$_name-$pkgver"

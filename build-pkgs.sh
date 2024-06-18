@@ -23,7 +23,6 @@ PKGS_ARRAY=(
     "httpdirfs"
     "i3lock-color"
     "libwgpu-native"
-    "openasar-git"
     "overmix-git"
     "python-colorthief"
     "python-ffsubsync-venv"
@@ -33,11 +32,12 @@ PKGS_ARRAY=(
     "rxvt-unicode"
     "siji-ng"
     "simple-mtpfs"
+    "transformers_ocr-nise"
     "transformers_ocr-nise-git"
     "ttf-monapo"
     "ttf-ms-win11-auto"
     "urxvt-resize-font-git"
-    "vencord-installer-bin"
+    "vencord-installer-cli-bin"
     "xclip-git"
 )
 

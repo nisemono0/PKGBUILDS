@@ -1,0 +1,44 @@
+# Maintainer: Ren Tatsumoto <tatsu at autistici dot org>
+# Original https://aur.archlinux.org/packages/transformers_ocr
+
+# Patched to work with scrot
+
+_pkgname=transformers_ocr
+pkgname=transformers_ocr-nise
+pkgver=0.18
+pkgrel=1
+pkgdesc="An OCR tool for manga using maim with Transformers. (Patched to work with scrot)"
+arch=(any)
+url="https://github.com/Ajatt-Tools/transformers_ocr"
+license=("GPL3")
+source=(
+    "${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
+    "scrot-freeze.diff"
+)
+depends=('python' 'python-pip' 'libnotify')
+optdepends=(
+	 'maim: taking screenshots on Xorg'
+     'scrot: taking screenshots on Xorg (alternative to maim)'
+	 'xclip: copying to the clipboard on Xorg'
+
+	 'grim: taking screenshots on Wayland'
+	 'slurp: selecting a region on Wayland'
+	 'wl-clipboard: copying to the clipboard on Wayland'
+
+	 'gnome-screenshot: taking screenshots on GNOME'
+	 'spectacle: taking screenshots on KDE'
+)
+sha256sums=(
+    '51cbafe7bab6e459d93f2a943a889980df465dcb65dcec5edd1e57cbf7b322a3'
+    '9d66ebffaa82b9bf5787c8df148cf22e82b8cc1d08b55594b839e77c67348129'
+)
+
+prepare() {
+    cd -- "${_pkgname}-${pkgver}"
+    patch --strip=1 -u --input="${srcdir}/scrot-freeze.diff" "src/transformers_ocr.py"
+}
+
+package() {
+	cd -- "${_pkgname}-${pkgver}"
+	make PREFIX="${pkgdir}/usr" install
+}

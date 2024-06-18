@@ -5,7 +5,7 @@
 
 _pkgname=transformers_ocr
 pkgname=transformers_ocr-nise-git
-pkgver=r102.c5ead66
+pkgver=r105.955d247
 pkgrel=1
 pkgdesc="An OCR tool for manga using maim with Transformers. (Patched to work with scrot)"
 arch=(any)
@@ -37,7 +37,7 @@ provides=("transformers_ocr")
 
 sha256sums=(
     'SKIP'
-    '6d55ab26c88ed82b2e5edd155b923396219504415af2ed4500a6e4dc92d02941'
+    '9d66ebffaa82b9bf5787c8df148cf22e82b8cc1d08b55594b839e77c67348129'
 )
 
 pkgver() {
