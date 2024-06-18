@@ -7,8 +7,9 @@
 
 # Edited to include the half screen bug patch
 
-pkgbase=rxvt-unicode
-pkgname=('rxvt-unicode' 'rxvt-unicode-terminfo')
+pkgbase=rxvt-unicode-nise
+_pkgname=('rxvt-unicode' 'rxvt-unicode-terminfo')
+pkgname=('rxvt-unicode-nise' 'rxvt-unicode-terminfo-nise')
 pkgver=9.31
 pkgrel=4
 arch=('x86_64')
@@ -25,9 +26,9 @@ makedepends=(
   'libptytty'
   'signify'
 )
-source=("$pkgname-$pkgver.tar.bz2::http://dist.schmorp.de/rxvt-unicode/$pkgname-$pkgver.tar.bz2"
-        "$pkgname-$pkgver.tar.bz2.signature::http://dist.schmorp.de/rxvt-unicode/$pkgname-$pkgver.tar.bz2.sig"
-        "$pkgname-$pkgver.pub::http://dist.schmorp.de/signing-key.pub"
+source=("$_pkgname-$pkgver.tar.bz2::http://dist.schmorp.de/rxvt-unicode/$_pkgname-$pkgver.tar.bz2"
+        "$_pkgname-$pkgver.tar.bz2.signature::http://dist.schmorp.de/rxvt-unicode/$_pkgname-$pkgver.tar.bz2.sig"
+        "$_pkgname-$pkgver.pub::http://dist.schmorp.de/signing-key.pub"
         'perl-5.38.patch'
         'urxvt.desktop'
         'urxvtc.desktop'
@@ -58,17 +59,17 @@ sha512sums=('4d14ecbbb62de1b1c717277f5aae5cfb536e11392f2d4b82c884c1713f437fce8e9
 
 prepare() {
   # hacking around to validate with signify
-  mv -v "$pkgname-$pkgver.tar.bz2."{signature,sig}
-  signify -V -p "$pkgname-$pkgver.pub" -m "$pkgname-$pkgver.tar.bz2"
+  mv -v "$_pkgname-$pkgver.tar.bz2."{signature,sig}
+  signify -V -p "$_pkgname-$pkgver.pub" -m "$_pkgname-$pkgver.tar.bz2"
 
-  patch -d "${pkgname}-${pkgver}" -p1 < perl-5.38.patch # Locale fix for perl 5.38
-  patch -d "${pkgname}-${pkgver}" -p0 < enable-wide-glyphs.patch
-  patch -d "${pkgname}-${pkgver}" -p0 < improve-font-rendering.patch
-  patch -d "${pkgname}-${pkgver}" -R -p1 -u < half_screen_prompt_fix.diff
+  patch -d "${_pkgname}-${pkgver}" -p1 < perl-5.38.patch # Locale fix for perl 5.38
+  patch -d "${_pkgname}-${pkgver}" -p0 < enable-wide-glyphs.patch
+  patch -d "${_pkgname}-${pkgver}" -p0 < improve-font-rendering.patch
+  patch -d "${_pkgname}-${pkgver}" -R -p1 -u < half_screen_prompt_fix.diff
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${_pkgname}-${pkgver}
   # we disable smart-resize (FS#34807)
   # do not specify --with-terminfo (FS#46424)
   # do not specify --disable-frills (FS#77474)
@@ -104,10 +105,10 @@ build() {
   make
 }
 
-package_rxvt-unicode() {
+package_rxvt-unicode-nise() {
   pkgdesc='Unicode enabled rxvt-clone terminal emulator (urxvt)'
   depends=(
-    'rxvt-unicode-terminfo'
+    'rxvt-unicode-terminfo-nise'
     'libxft'
     'perl'
     'startup-notification'
@@ -117,22 +118,25 @@ package_rxvt-unicode() {
     'libxmu'
   )
   optdepends=('gtk2-perl: to use urxvt-tabbed')
-
+  provides=('rxvt-unicode')
+  conflicts=('rxvt-unicode')
+  
   # install freedesktop menu
   for _f in urxvt urxvtc urxvt-tabbed; do
     install -Dm 644 ${_f}.desktop "${pkgdir}/usr/share/applications/${_f}.desktop"
   done
 
-  cd ${pkgname}-${pkgver}
+  cd ${_pkgname}-${pkgver}
   make DESTDIR="${pkgdir}" install
   # install the tabbing wrapper ( requires gtk2-perl! )
   sed -i 's/\"rxvt\"/"urxvt"/' doc/rxvt-tabbed
   install -Dm 755 doc/rxvt-tabbed "${pkgdir}/usr/bin/urxvt-tabbed"
 }
 
-package_rxvt-unicode-terminfo() {
+package_rxvt-unicode-terminfo-nise() {
   pkgdesc='Terminfo files for urxvt'
-  conflict=('rxvt-unicode<=9.18-6')
+  provides=('rxvt-unicode-terminfo')
+  conflict=('rxvt-unicode<=9.18-6' 'rxvt-unicode-terminfo')
   install -dm 755 "${pkgdir}/usr/share/"
   mv terminfo "${pkgdir}/usr/share/"
 }
