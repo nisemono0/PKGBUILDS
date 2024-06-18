@@ -28,6 +28,10 @@ optdepends=(
 	 'gnome-screenshot: taking screenshots on GNOME'
 	 'spectacle: taking screenshots on KDE'
 )
+
+conflicts=("transformers_ocr" "transformers_ocr-nise-git")
+provides=("transformer_ocr")
+
 sha256sums=(
     '51cbafe7bab6e459d93f2a943a889980df465dcb65dcec5edd1e57cbf7b322a3'
     '9d66ebffaa82b9bf5787c8df148cf22e82b8cc1d08b55594b839e77c67348129'

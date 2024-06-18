@@ -32,7 +32,7 @@ optdepends=(
      'spectacle: taking screenshots on KDE'
 )
 
-conflicts=("transformers_ocr")
+conflicts=("transformers_ocr" "transformers_ocr-nise")
 provides=("transformers_ocr")
 
 sha256sums=(
