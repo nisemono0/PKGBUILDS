@@ -1,7 +1,7 @@
 _pkgname=Overmix
 pkgname=overmix-git
 pkgver=r896.ebc2d31
-pkgrel=1
+pkgrel=2
 pkgdesc='Automatic anime screenshot stitching in high quality'
 arch=('x86_64')
 url='https://github.com/spillerrec/Overmix'
@@ -28,10 +28,12 @@ provides=("overmix")
 makedepends=('cmake' 'boost' 'png++' 'git')
 
 source=("git+${url}"
-        "overmix.desktop")
+        "overmix.desktop"
+        "frame-fix.diff")
 
 sha256sums=('SKIP'
-            'e9e71bf5523fb4acfd7e01d0db90f42626ed9cd7fb20f57efa8fe40a69639627')
+            'e9e71bf5523fb4acfd7e01d0db90f42626ed9cd7fb20f57efa8fe40a69639627'
+            '1cf1f59fb0e2942423338697f1cf8981921a21fe818663ad0d39d7b34a898d71')
 
 pkgver() {
 	cd $_pkgname
@@ -39,6 +41,7 @@ pkgver() {
 }
 
 prepare() {
+    patch --strip=1 -u --input="${srcdir}/frame-fix.diff" "${srcdir}/${_pkgname}/src/video/VideoFrame.cpp"
     cmake \
         -B build \
         -S "${_pkgname}" \
