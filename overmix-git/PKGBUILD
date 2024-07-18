@@ -1,9 +1,10 @@
 _pkgname=Overmix
 pkgname=overmix-git
 pkgver=r896.ebc2d31
-pkgrel=2
+pkgrel=3
 pkgdesc='Automatic anime screenshot stitching in high quality'
 arch=('x86_64')
+_commit="ebc2d3128a4024a7cb267ad0ecec210aa772efc7"
 url='https://github.com/spillerrec/Overmix'
 license=('GPL3')
 depends=(
@@ -27,7 +28,7 @@ conflicts=("overmix")
 provides=("overmix")
 makedepends=('cmake' 'boost' 'png++' 'git')
 
-source=("git+${url}"
+source=("git+${url}#commit=${_commit}"
         "overmix.desktop"
         "frame-fix.diff")
 
