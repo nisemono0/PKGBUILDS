@@ -1,8 +1,6 @@
-diff --git a/src/rxvtperl.xs b/src/rxvtperl.xs
-index 25b1144b..f664f397 100644
---- a/src/rxvtperl.xs
-+++ b/src/rxvtperl.xs
-@@ -399,7 +399,7 @@ rxvt_perl_interp::init ()
+--- src/rxvtperl.xs
++++ src/rxvtperl.xs
+@@ -399,7 +399,7 @@
  {
    if (!perl)
      {

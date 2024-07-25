@@ -11,7 +11,7 @@ pkgbase=rxvt-unicode-nise
 _pkgname=('rxvt-unicode' 'rxvt-unicode-terminfo')
 pkgname=('rxvt-unicode-nise' 'rxvt-unicode-terminfo-nise')
 pkgver=9.31
-pkgrel=5
+pkgrel=6
 arch=('x86_64')
 url='http://software.schmorp.de/pkg/rxvt-unicode.html'
 license=('GPL')
@@ -26,46 +26,50 @@ makedepends=(
   'libptytty'
   'signify'
 )
-source=("$_pkgname-$pkgver.tar.bz2::http://dist.schmorp.de/rxvt-unicode/$_pkgname-$pkgver.tar.bz2"
-        "$_pkgname-$pkgver.tar.bz2.signature::http://dist.schmorp.de/rxvt-unicode/$_pkgname-$pkgver.tar.bz2.sig"
-        "$_pkgname-$pkgver.pub::http://dist.schmorp.de/signing-key.pub"
-        'perl-5.38.patch'
-        'urxvt.desktop'
-        'urxvtc.desktop'
-        'urxvt-tabbed.desktop'
-        'half_screen_prompt_fix.diff'
-        'enable-wide-glyphs.patch'
-        'improve-font-rendering.patch')
-sha256sums=('aaa13fcbc149fe0f3f391f933279580f74a96fd312d6ed06b8ff03c2d46672e8'
-            'afea78dc25db8cd15da9959baf347b0634f4ef62dd3eeaff0c0a3389986b6a3e'
-            '48ef5720d77a870f25737b8f66fe2c1f88a01810013df70cb8155add904288e4'
-            '4bec0bf559a2eb6649e077b220fe25f532a8bc3da98ac519bc72a39b223e2cc4'
-            '5f9c435d559371216d1c5b49c6ec44bfdb786b12d925d543c286b0764dea0319'
-            '91536bb27c6504d6cb0d33775a0c4709a4b439670b900f0c278c25037f19ad66'
-            'ccd7c436e959bdc9ab4f15801a67c695b382565b31d8c352254362e67412afcb'
-            '14a72cbc7cc25d91b17470de4c5919654c7aabe07682332e94569948ee328578'
-            'c91fff4e490d32fb1fdd23deda51a0f70aec488cf47f642e8b263f11b107761c'
-            'ef5b6b9a872c267d8b2c41180f341dfd3aac666a6ebe841f1aa9845c632b621f')
-sha512sums=('4d14ecbbb62de1b1c717277f5aae5cfb536e11392f2d4b82c884c1713f437fce8e9dd69a328fa353a55d068d8ee4121a31900f45191acec172d5dc76652b6255'
-            '389b1959387f4d5c960901763e45cdcf670fb8de6506ed9d1d49b3c58616f1fb10d5b158b5f89257f3db1bac3a0b270bb35043e7e13e5222549153e83db79ef9'
-            'a09a434387e22612a9225ddfa444044977712c6410efe8a77a33d8aa607bd1acbef2a1da08b62e21a4b070f0974ba94ae907ac0452b5d060e33a1c051a7780e4'
-            'e7361bd9ad5199d1976e9b0d4d8d74b1e18ae795ef255f42633c7be2632382aa94b30e5790ee788ee51fbd8bf0af9092d896d69684f362a8a507523ad4653473'
-            '7184714a908071a4e8e5c065c5f90255e94dfd072df459c8d6f66fca3647781b3d1f6908b9303bcfd0d5b3f2e3822a8d66efaaa8a7c4d44f6e682839031a6e99'
-            'aa501eeeb220ba03b3f101b160230612efbca87694fef88c469b2976d29769c24b34576ea82f6c7941fad6039ac776f32e397add9b957b49bf2e84aeb67b66d6'
-            '18c7afb0c3eb8c832893b9ead09d25374b70ae1cd5479a5291d11794906c53daa6f1a1bf698b37efda062bb2b991cacac53a0a6c185ca416b8718fde2bb6a7af'
-            '6cd77f95c4f2bf2c8d32fcb5f9ccde873ce829abb27183bfbaab92b62b07c4a9ab5becbc90bfa0569b8fe5912a8c197d3d43c8560171eb2cefe1f6550b150fe2'
-            'a4cf036a43d20f846d2d7fac49f53ec747b4b8b008e6c66f35c6be6281b4ee03e1d19f683d91df1d50933bcd56814a75262f7842562d2bcb44a0fb14bc6f5624'
-            '35c6fafe935e910638960cc7ac25036376569dff2314a2d066bc6c221e36754fa22e1b39acb044523cdd005ce572cc369d7f7af5a5ea4864b661cd38ea2f20de')
+source=(
+  "$_pkgname-$pkgver.tar.bz2::http://dist.schmorp.de/rxvt-unicode/$_pkgname-$pkgver.tar.bz2"
+  "$_pkgname-$pkgver.tar.bz2.signature::http://dist.schmorp.de/rxvt-unicode/$_pkgname-$pkgver.tar.bz2.sig"
+  "$_pkgname-$pkgver.pub::http://dist.schmorp.de/signing-key.pub"
+  'urxvt.desktop'
+  'urxvtc.desktop'
+  'urxvt-tabbed.desktop'
+  '7-bit-queries.patch'
+  'perl-5.38.patch'
+  'lines-rewrap.patch'
+  '24-bit-color.patch'
+  'enable-wide-glyphs.patch'
+  'improve-font-rendering.patch'
+  'sixel-support.patch'
+)
+
+b2sums=(
+  '439a8c33b7260e0f2fd68b8a4409773c06c3bb7623b5dfbbb0742cc198c9fd25e8a247907878639db5fac3dcd3b6be3d839347787bcf08ca602ae246607f750b'
+  '1c58b1d53c72dbfae4f9302f5903365f84e85b2a1e9846d9dd9c712a7900e73a94621a41bee6dd75d690df8ae95d1d987d93ca4355eb8d8c423c57680df0edcf'
+  '6d6bd90b77e67ccb876f0c78c710c9e1b82767a19aeadaac9310e5628b791586fc8475ad5179eaa2fee386ae80aae916226167ec92c5af309bba4052238326c8'
+  '79a5f759dc6568c9193d3c533ba6c649aafef7eb545abf5a87cdf8d877ce2c25ae4a841e23967cc63f8048eb140343f0fe1a8327642410190c5da60415c50d3c'
+  '420a8820c165a2137cf9936acdc597ec696a5d75c30f8bbcfb0f3b75d04fdf4a9a4e3ae38a35372cfbf0497b2d115902aa18b2b38d292cf881fc19d1c113b7df'
+  'abb9325d47d42f813e3054430c7451d5b8141a2285aa8082feb0ee24f8c0b3bc3011854d0d964da5e9e4296770f1ce8ba5843fe8b0bcf2cbcec4f6ea8e6a720a'
+  '94b110f9901786c398c313199da17b5981644241de2385208d36a3cccbf029c518ee619bbadff0348405bc01cd8f24abf41aa361b2f140178345197c2b476e03'
+  'dcaeac1c3822bf27d0ea4ac3ae6a8852c88420b3b30a5b31ec9022afbf4f65aa29b1e11e0b5e3f6098de057983d886b6a54b5e3ce489ac93320245a6d6f64703'
+  '06b8a321a59c92ad781f882e454a4868a5b9e6bf482217568a6ed8a2e82e5e2e604bcea1efd79aa6dbaffb6c1e12416f4232966e718b2001142082a57e15468f'
+  'ba382f5b1b2d7494a2faee2674530fae21aa36ce9e6aea7375c354fa8036ef37f34759b164658856cb4bebbc8f34be79dc26eca83670b945e956dae1d54bf842'
+  '83cad5f2583ea152c7da1fc804a9ce7e7ee8d7b9735645b647172a8d0512c8cdcf44b45e16ccd3b8770c971749aecfc8d172009bffb479ca00d12b7697b012cd'
+  '05faae03a36b71fa5a9105f143b8e2d084014857cc4012c25a531808392c5a6e48ea72cd0857beb494d76b7b0a7943ec8da3e28e411d800e29b8ac6ae4e21788'
+  '779722ba0b7215464cc35081fc9592910499646602fdb2b772d6329545e8ec0099fb4e0a3c4a63bbc4d900838c28fee5a4865c48cfc5192d1538d0676d03bc4e'
+)
 
 prepare() {
   # hacking around to validate with signify
   mv -v "$_pkgname-$pkgver.tar.bz2."{signature,sig}
   signify -V -p "$_pkgname-$pkgver.pub" -m "$_pkgname-$pkgver.tar.bz2"
 
-  patch -d "${_pkgname}-${pkgver}" -p1 < perl-5.38.patch # Locale fix for perl 5.38
+  patch -d "${_pkgname}-${pkgver}" -p0 < 7-bit-queries.patch
+  patch -d "${_pkgname}-${pkgver}" -p0 < perl-5.38.patch # Locale fix for perl 5.38
+  patch -d "${_pkgname}-${pkgver}" -p0 < lines-rewrap.patch
+  patch -d "${_pkgname}-${pkgver}" -p0 < 24-bit-color.patch
   patch -d "${_pkgname}-${pkgver}" -p0 < enable-wide-glyphs.patch
   patch -d "${_pkgname}-${pkgver}" -p0 < improve-font-rendering.patch
-  patch -d "${_pkgname}-${pkgver}" -R -p1 -u < half_screen_prompt_fix.diff
+  #patch -d "${_pkgname}-${pkgver}" -p0 < sixel-support.patch
 }
 
 build() {
@@ -101,12 +105,13 @@ build() {
     --enable-xim \
     --enable-xterm-scroll \
     --enable-wide-glyphs \
+    --enable-24-bit-color \
     --disable-pixbuf
   make
 }
 
 package_rxvt-unicode-nise() {
-  pkgdesc='Unicode enabled rxvt-clone terminal emulator (urxvt)'
+  pkgdesc='Unicode enabled rxvt-clone terminal emulator (urxvt) with some added patches'
   depends=(
     'rxvt-unicode-terminfo-nise'
     'libxft'
@@ -120,7 +125,7 @@ package_rxvt-unicode-nise() {
   optdepends=('gtk2-perl: to use urxvt-tabbed')
   provides=('rxvt-unicode')
   conflicts=('rxvt-unicode')
-  
+
   # install freedesktop menu
   for _f in urxvt urxvtc urxvt-tabbed; do
     install -Dm 644 ${_f}.desktop "${pkgdir}/usr/share/applications/${_f}.desktop"
