@@ -1,0 +1,14 @@
+--- ranger/gui/ui.py	2019-12-31 17:07:45.000000000 +0200
++++ ranger/gui/ui-fix.py	2024-07-27 14:56:38.375163437 +0300
+@@ -147,7 +147,10 @@
+             pass
+         if self.settings.mouse_enabled:
+             _setup_mouse(dict(value=False))
+-        curses.endwin()
++        try:
++            curses.endwin()
++        except curses.error:
++            pass
+         self.is_on = False
+ 
+     def set_load_mode(self, boolean):
