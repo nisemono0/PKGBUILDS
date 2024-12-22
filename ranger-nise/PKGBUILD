@@ -3,9 +3,10 @@
 # Contributor: schuay <jakob.gruber@gmail.com>
 # Contributor: Roman Zimbelmann <romanz@lavabit.com>
 
-pkgname=ranger
+_pkgname=ranger
+pkgname=ranger-nise
 pkgver=1.9.4
-pkgrel=2
+pkgrel=1
 pkgdesc='Simple, vim-like file manager'
 arch=('any')
 url='https://ranger.github.io'
@@ -33,7 +34,7 @@ checkdepends=('python-pytest')
 makedepends=(python-{build,installer,wheel}
              python-setuptools)
 source=(
-    "https://ranger.github.io/${pkgname}-${pkgver}.tar.gz"
+    "https://ranger.github.io/${_pkgname}-${pkgver}.tar.gz"
     'libcurses-fix.patch'
 )
 sha512sums=(
@@ -42,7 +43,7 @@ sha512sums=(
 )
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
+  cd "${_pkgname}-${pkgver}"
   # fixes libcurses endwin problem
   patch -p0 < ../libcurses-fix.patch
   # fixes https://github.com/ranger/ranger/issues/1853
@@ -52,12 +53,12 @@ prepare() {
 }
 
 build() {
-  cd ${pkgname}-${pkgver}
+  cd ${_pkgname}-${pkgver}
   python -m build -wn
 }
 
 check() {
-  cd ${pkgname}-${pkgver}
+  cd ${_pkgname}-${pkgver}
   local _pyver=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
   export PYTHONPATH="$PWD/lib.linux-$CARCH-cpython-$_pyver"
   export TERM=linux
@@ -65,7 +66,7 @@ check() {
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
+  cd ${_pkgname}-${pkgver}
   python -m installer -d "$pkgdir" dist/*.whl
 }
 
