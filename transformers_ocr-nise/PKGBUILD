@@ -6,7 +6,7 @@
 _pkgname=transformers_ocr
 pkgname=transformers_ocr-nise
 pkgver=0.18
-pkgrel=1
+pkgrel=2
 pkgdesc="An OCR tool for manga using maim with Transformers. (Patched to work with scrot)"
 arch=(any)
 url="https://github.com/Ajatt-Tools/transformers_ocr"
