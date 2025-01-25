@@ -1,7 +1,7 @@
 _pkgname=wgpu-native
 pkgname=libwgpu-native
 pkgver=0.19.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Native WebGPU implementation in Rust, based on wgpu-core'
 url='https://github.com/gfx-rs/wgpu-native'
 arch=('x86_64')

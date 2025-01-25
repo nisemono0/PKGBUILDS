@@ -2,7 +2,7 @@
 
 _pkgname=dmenu
 pkgname="$_pkgname-nise-git"
-pkgver=r613.7be720c
+pkgver=r619.86f0b51
 pkgrel=1
 pkgdesc='Generic menu for X'
 url='https://tools.suckless.org/dmenu/'
@@ -49,7 +49,7 @@ prepare() {
   echo "CPPFLAGS+=${CPPFLAGS}" >> config.mk
   echo "CFLAGS+=${CFLAGS}" >> config.mk
   echo "LDFLAGS+=${LDFLAGS}" >> config.mk
-  
+
   patch -p1 -i "$srcdir/dmenu-center-git.diff"
   patch -p1 -i "$srcdir/dmenu-border-git.diff"
   patch -p1 -i "$srcdir/dmenu-mousesupport-git.diff"
@@ -65,9 +65,9 @@ prepare() {
 build() {
   cd ${_pkgname}
   make \
-	  X11INC=/usr/include/X11 \
-	  X11LIB=/usr/lib/X11 \
-	  FREETYPEINC=/usr/include/freetype2
+    X11INC=/usr/include/X11 \
+    X11LIB=/usr/lib/X11 \
+    FREETYPEINC=/usr/include/freetype2
 }
 
 package() {
