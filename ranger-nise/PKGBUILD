@@ -6,12 +6,14 @@
 _pkgname=ranger
 pkgname=ranger-nise
 pkgver=1.9.4
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple, vim-like file manager'
 arch=('any')
 url='https://ranger.github.io'
 license=('GPL')
 depends=('python')
+conflicts=('ranger')
+provides=('ranger')
 optdepends=(
     'atool: for previews of archives'
     'elinks: for previews of html pages'
