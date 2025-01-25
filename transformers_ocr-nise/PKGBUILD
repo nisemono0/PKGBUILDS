@@ -5,8 +5,8 @@
 
 _pkgname=transformers_ocr
 pkgname=transformers_ocr-nise
-pkgver=0.18
-pkgrel=2
+pkgver=0.19
+pkgrel=1
 pkgdesc="An OCR tool for manga using maim with Transformers. (Patched to work with scrot)"
 arch=(any)
 url="https://github.com/Ajatt-Tools/transformers_ocr"
@@ -17,24 +17,25 @@ source=(
 )
 depends=('python' 'python-pip' 'libnotify')
 optdepends=(
-	 'maim: taking screenshots on Xorg'
-     'scrot: taking screenshots on Xorg (alternative to maim)'
-	 'xclip: copying to the clipboard on Xorg'
+    'maim: taking screenshots on Xorg'
+    'scrot: taking screenshots on Xorg (alternative to maim)'
+    'xclip: copying to the clipboard on Xorg'
 
-	 'grim: taking screenshots on Wayland'
-	 'slurp: selecting a region on Wayland'
-	 'wl-clipboard: copying to the clipboard on Wayland'
+    'grim: taking screenshots on Wayland'
+    'slurp: selecting a region on Wayland'
+    'wl-clipboard: copying to the clipboard on Wayland'
 
-	 'gnome-screenshot: taking screenshots on GNOME'
-	 'spectacle: taking screenshots on KDE'
+    'gnome-screenshot: taking screenshots on GNOME'
+    'spectacle: taking screenshots on KDE'
+    'xfce4-screenshooter: taking screenshots on XFCE'
 )
 
 conflicts=("transformers_ocr" "transformers_ocr-nise-git")
 provides=("transformer_ocr")
 
 sha256sums=(
-    '51cbafe7bab6e459d93f2a943a889980df465dcb65dcec5edd1e57cbf7b322a3'
-    '9d66ebffaa82b9bf5787c8df148cf22e82b8cc1d08b55594b839e77c67348129'
+    '7fe482424717f759573218e6b3228090a6dec665e93b070071368242150df6b3'
+    'e0bef6d3940cfbea7d0ee7f04255b91c3d61f84e5e1db9002e46dc5123ec9563'
 )
 
 prepare() {
@@ -43,6 +44,6 @@ prepare() {
 }
 
 package() {
-	cd -- "${_pkgname}-${pkgver}"
-	make PREFIX="${pkgdir}/usr" install
+    cd -- "${_pkgname}-${pkgver}"
+    make PREFIX="${pkgdir}/usr" install
 }

@@ -5,7 +5,7 @@
 
 _pkgname=transformers_ocr
 pkgname=transformers_ocr-nise-git
-pkgver=r105.955d247
+pkgver=r106.a50e90d
 pkgrel=1
 pkgdesc="An OCR tool for manga using maim with Transformers. (Patched to work with scrot)"
 arch=(any)
@@ -30,6 +30,7 @@ optdepends=(
 
      'gnome-screenshot: taking screenshots on GNOME'
      'spectacle: taking screenshots on KDE'
+     'xfce4-screenshooter: taking screenshots on XFCE'
 )
 
 conflicts=("transformers_ocr" "transformers_ocr-nise")
@@ -37,7 +38,7 @@ provides=("transformers_ocr")
 
 sha256sums=(
     'SKIP'
-    '9d66ebffaa82b9bf5787c8df148cf22e82b8cc1d08b55594b839e77c67348129'
+    'e0bef6d3940cfbea7d0ee7f04255b91c3d61f84e5e1db9002e46dc5123ec9563'
 )
 
 pkgver() {
