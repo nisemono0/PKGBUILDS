@@ -26,7 +26,7 @@ index 323f93c..c036baa 100644
  dmenu grabs the keyboard before reading stdin if not reading from a tty. This
  is faster, but will lock up X until stdin reaches end\-of\-file.
 diff --git a/dmenu.c b/dmenu.c
-index 40f93e0..6365364 100644
+index fd49549..52fe047 100644
 --- a/dmenu.c
 +++ b/dmenu.c
 @@ -636,6 +636,7 @@ setup(void)
@@ -77,7 +77,7 @@ index 40f93e0..6365364 100644
  	}
  	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
  	inputw = mw / 3; /* input width: ~33% of monitor width */
-@@ -734,6 +749,8 @@ main(int argc, char *argv[])
+@@ -733,6 +748,8 @@ main(int argc, char *argv[])
  			topbar = 0;
  		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
  			fast = 1;

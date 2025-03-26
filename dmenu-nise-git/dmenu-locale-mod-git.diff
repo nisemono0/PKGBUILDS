@@ -25,7 +25,7 @@ index 2d7784b..44f0d56 100644
  set border size of the dmenu window
  .TP
 diff --git a/dmenu.c b/dmenu.c
-index 745b023..2de5e5e 100644
+index 1b5c7a3..15cfc32 100644
 --- a/dmenu.c
 +++ b/dmenu.c
 @@ -46,10 +46,11 @@ static struct item *items = NULL;
@@ -47,7 +47,7 @@ index 745b023..2de5e5e 100644
  	size_t i;
 -
 +    
- 	XUngrabKey(dpy, AnyKey, AnyModifier, root);
+ 	XUngrabKeyboard(dpy, CurrentTime);
  	for (i = 0; i < SchemeLast; i++)
  		free(scheme[i]);
  	for (i = 0; items && items[i].text; ++i)
@@ -79,7 +79,7 @@ index 745b023..2de5e5e 100644
  			continue;
  		switch(ev.type) {
  		case DestroyNotify:
-@@ -881,6 +894,9 @@ setup(void)
+@@ -880,6 +893,9 @@ setup(void)
  	                XNClientWindow, win, XNFocusWindow, win, NULL);
  
  	XMapRaised(dpy, win);
@@ -89,7 +89,7 @@ index 745b023..2de5e5e 100644
  	if (embed) {
  		XReparentWindow(dpy, win, parentwin, x, y);
  		XSelectInput(dpy, parentwin, FocusChangeMask | SubstructureNotifyMask);
-@@ -922,7 +938,9 @@ main(int argc, char *argv[])
+@@ -921,7 +937,9 @@ main(int argc, char *argv[])
  		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
  			fstrncmp = strncasecmp;
  			fstrstr = cistrstr;
@@ -100,7 +100,7 @@ index 745b023..2de5e5e 100644
  			usage();
  		/* these options take one argument */
  		else if (!strcmp(argv[i], "-l"))   /* number of lines in vertical list */
-@@ -971,6 +989,12 @@ main(int argc, char *argv[])
+@@ -970,6 +988,12 @@ main(int argc, char *argv[])
  	if (pledge("stdio rpath", NULL) == -1)
  		die("pledge");
  #endif
