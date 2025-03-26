@@ -11,10 +11,10 @@ pkgbase=rxvt-unicode-nise
 _pkgname=('rxvt-unicode' 'rxvt-unicode-terminfo')
 pkgname=('rxvt-unicode-nise' 'rxvt-unicode-terminfo-nise')
 pkgver=9.31
-pkgrel=9
+pkgrel=10
 arch=('x86_64')
-url='http://software.schmorp.de/pkg/rxvt-unicode.html'
-license=('GPL')
+url='https://software.schmorp.de/pkg/rxvt-unicode.html'
+license=('GPL-3.0-only')
 makedepends=(
   'libxft'
   'libxt'
@@ -27,9 +27,9 @@ makedepends=(
   'signify'
 )
 source=(
-  "$_pkgname-$pkgver.tar.bz2::http://dist.schmorp.de/rxvt-unicode/$_pkgname-$pkgver.tar.bz2"
-  "$_pkgname-$pkgver.tar.bz2.signature::http://dist.schmorp.de/rxvt-unicode/$_pkgname-$pkgver.tar.bz2.sig"
-  "$_pkgname-$pkgver.pub::http://dist.schmorp.de/signing-key.pub"
+  "$_pkgname-$pkgver.tar.bz2::https://dist.schmorp.de/rxvt-unicode/$_pkgname-$pkgver.tar.bz2"
+  "$_pkgname-$pkgver.tar.bz2.signature::https://dist.schmorp.de/rxvt-unicode/$_pkgname-$pkgver.tar.bz2.sig"
+  "$_pkgname-$pkgver.pub::https://dist.schmorp.de/signing-key.pub"
   'urxvt.desktop'
   'urxvtc.desktop'
   'urxvt-tabbed.desktop'
