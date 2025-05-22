@@ -1,37 +1,34 @@
 _pkgname=HLib
 pkgname=hlib-git
-pkgver=r87.48c5d16
+pkgver=r97.aa99d5c
 pkgrel=1
 pkgdesc='My local H library view/search app'
 arch=('x86_64')
 url='https://github.com/nisemono0/HLib'
 license=('MIT')
 depends=(
-    'qt5-base'
-    'quazip-qt5'
+    'qt6-base'
+    'quazip-qt6'
 )
 conflicts=("hlib-git")
 provides=("hlib-git")
-makedepends=('make' 'qt5-base' 'git')
+makedepends=('cmake' 'make' 'qt6-base' 'quazip-qt6' 'git')
 
 source=("git+${url}")
 
 sha256sums=('SKIP')
 
 pkgver() {
-	cd $_pkgname
-	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-}
-
-prepare() {
-    cd "${_pkgname}"
-    sh ./qmakeconf.sh
+    cd $_pkgname
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 build() {
-    make -C "${_pkgname}" release
+    cd $_pkgname
+    cmake -DCMAKE_BUILD_TYPE=Release -S . -B build
+    cmake --build build --config Release
 }
 
 package() {
-    install -Dm755 "${_pkgname}/release/HLib" -t "${pkgdir}/usr/bin/"
+    install -Dm755 "${_pkgname}/build/HLib" -t "${pkgdir}/usr/bin/"
 }
