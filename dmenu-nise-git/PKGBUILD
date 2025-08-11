@@ -2,7 +2,7 @@
 
 _pkgname=dmenu
 pkgname="$_pkgname-nise-git"
-pkgver=r620.b1e217b
+pkgver=r621.d893c63
 pkgrel=1
 pkgdesc='Generic menu for X'
 url='https://tools.suckless.org/dmenu/'
