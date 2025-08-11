@@ -1,8 +1,8 @@
 # Added some patches
 _pkgname=dmenu
 pkgname=dmenu-nise
-pkgver=5.3
-pkgrel=4
+pkgver=5.4
+pkgrel=1
 pkgdesc='Generic menu for X'
 url='https://tools.suckless.org/dmenu/'
 arch=('x86_64')
@@ -12,29 +12,29 @@ provides=($_pkgname)
 conflicts=($_pkgname)
 depends=('sh' 'glibc' 'coreutils' 'libx11' 'libxinerama' 'libxft' 'freetype2' 'fontconfig' 'libfontconfig.so')
 source=("git+https://git.suckless.org/dmenu#tag=${pkgver}"
-        "dmenu-border-5.3.diff"
-        "dmenu-center-5.3.diff"
-        "dmenu-dynamic-buffer-5.3.diff"
-        "dmenu-linesbelowprompt-and-fullwidth-5.3.diff"
-        "dmenu-locale-mod-5.3.diff"
-        "dmenu-mousesupport-5.3.diff"
-        "dmenu-mousesupport-motion-5.3.diff"
-        "dmenu-movepointer-5.3.diff"
-        "dmenu-numbers-5.3.diff"
-        "dmenu-preselect-5.3.diff"
+        "dmenu-border-5.4.diff"
+        "dmenu-center-5.4.diff"
+        "dmenu-dynamic-buffer-5.4.diff"
+        "dmenu-linesbelowprompt-and-fullwidth-5.4.diff"
+        "dmenu-locale-mod-5.4.diff"
+        "dmenu-mousesupport-5.4.diff"
+        "dmenu-mousesupport-motion-5.4.diff"
+        "dmenu-movepointer-5.4.diff"
+        "dmenu-numbers-5.4.diff"
+        "dmenu-preselect-5.4.diff"
 )
 
-b2sums=('6da7112a8975c152038f7694f1a658674f92c2d5a9340f97e8b64430a2fce612c87effd361078b66ce77510d6bb6478c47ea3b1d6ee0adfafa1e8c0d62f1adb5'
-        'c1735a72ffadb8c05b31fbc28ecc1eda687cb9d2c8ff01394a7bdc663d1d45a311cbaac5cf25663c18680fbab8af5c5d54b93a5624da905d79a5f4ffc831cc66'
-        '69434f8eb2ce3c016d9052add76a843fd0ffcce8e72887824dfc93ff63907fdb2598ff8649852f1bf77c2fae33d9e503663b895f223b2745a8bc21e1cdfc462b'
+b2sums=('e6aafe7abadd62950c52f59dcfef9c9a0bc52be55cfaf9c08598494acaa24d910604a63d5542671935b15f1f14e55ca6ffcbc182454c7e7756f4dbe7e72dbb93'
+        'ac327cbf65c2e86ec7987658090a95860cfc3b1765b6bf9c6be35ac0c34fbd11ac32cfa6ce1cda17886a95bb13b0b0f188811274678fd46b2f808d1a81fa1fce'
+        '4c836ab723292fdd6e9a87356a08794c110598454a3f2b61708f5b894039ed6a5ec65b95471fa9154d918b04c88a92cae921566a9581e453dab10570f6f25352'
         '2c8af3c77c6dad6477906ba6d57a2f4ccf30e14e95895b1640611dcb29accf71900157a6d841bafe851e69ac18ce99d362286e14a3d7485187c550b543fd8e37'
         'f6edfa67421aea15ba37d139fba2dfef0a7b2c9b99f681e2e7f85566c2903e319c3435e24053820cb2cbc52dac069e1a998511263109de62b2506d469c950365'
-        'b0a9e20f0ebf33387eaaab36c817299bd5cbd15d8808ec8447c33779c2206eb59d4306941268b69f402096b3e8c1c6203b57414b74d2d6d5e01e1b18a9b3730d'
+        'af67ef88488e35be7c5f2bedc55bb6472ba824f3aea853c98eadecd51bbe0e592ab1d8c3ec9aa12af106c72cf699638cf8cdf30e6c1cc4fd5fc62a7fd6b1958c'
         'cd5c3e20b4bb55f36b911c89ec70ca8228d38b5d1094fbc56413a21982188a5d80c16ace70328a13173c69d6ac1f0caf60e1f049877d77e426f025d9e1c668b6'
         'f1e6a490368af620e033a91386e4371ba522af5706309b53975f2eb7be409d286508b714581d62bf717a91b30d9436cb9bcdef5aa26b2bdaf8cf520a045e5b42'
-        'de2615839e283a0a0b20d0f309f5a53dc30680e723c4b7d2789ae35469216e6b53f3ebaf047d54d02386af08c17fd40561307430100d03b9a76b86775adeccd8'
+        '88a3821a749622aaa1ce3a7c5b18e56f91344e439dfd3ea7ff1e3e93d91e6cd5f636b4a3b659f79aefcb236f42b5d39fa51e68e6585d622e9846fa0757cf19bf'
         'b98de06aa9467491161f0cf5fcf3a64fa262b96c5ed67eae6bfe4f5117ea274ce10abeabfa066007d68a18a67a9e3d81ec180588770b99b40a92f17a73ce88d1'
-        'd04156981fef019cb72c386ce070266b45a30042f9e9f3b4971a34f20f282468b9d95ffd2e1da6a43906ab2973adc5c483b073cd4b26c96401ed4e2a6d31d121'
+        'df50bc9963c36d3b1a8ef39a7b28c65fc99fd241e08672aa91503bf8b59c7cd88c52ebd31cac4f4ddd1496c427b61b5b2be1e68ded74cd0171ec65bbfc56e6a5'
 )
 
 prepare() {
@@ -43,16 +43,16 @@ prepare() {
   echo "CFLAGS+=${CFLAGS}" >> config.mk
   echo "LDFLAGS+=${LDFLAGS}" >> config.mk
 
-  patch -p1 -i "$srcdir/dmenu-center-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-border-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-mousesupport-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-mousesupport-motion-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-numbers-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-linesbelowprompt-and-fullwidth-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-locale-mod-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-dynamic-buffer-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-preselect-5.3.diff"
-  patch -p1 -i "$srcdir/dmenu-movepointer-5.3.diff"
+  patch -p1 -i "$srcdir/dmenu-center-5.4.diff"
+  patch -p1 -i "$srcdir/dmenu-border-5.4.diff"
+  patch -p1 -i "$srcdir/dmenu-mousesupport-5.4.diff"
+  patch -p1 -i "$srcdir/dmenu-mousesupport-motion-5.4.diff"
+  patch -p1 -i "$srcdir/dmenu-numbers-5.4.diff"
+  patch -p1 -i "$srcdir/dmenu-linesbelowprompt-and-fullwidth-5.4.diff"
+  patch -p1 -i "$srcdir/dmenu-locale-mod-5.4.diff"
+  patch -p1 -i "$srcdir/dmenu-dynamic-buffer-5.4.diff"
+  patch -p1 -i "$srcdir/dmenu-preselect-5.4.diff"
+  patch -p1 -i "$srcdir/dmenu-movepointer-5.4.diff"
 }
 
 build() {

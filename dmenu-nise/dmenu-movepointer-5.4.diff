@@ -27,7 +27,7 @@ index a785282..f033f74 100644
  set border size of the dmenu window
  .TP
 diff --git a/dmenu.c b/dmenu.c
-index 8f9f601..bf6952b 100644
+index 6554b71..6004cc9 100644
 --- a/dmenu.c
 +++ b/dmenu.c
 @@ -792,6 +792,30 @@ run(void)
@@ -61,7 +61,7 @@ index 8f9f601..bf6952b 100644
  static void
  setup(void)
  {
-@@ -908,7 +932,10 @@ setup(void)
+@@ -907,7 +931,10 @@ setup(void)
  	XMapRaised(dpy, win);
      if(locale_mod) {
          XSetInputFocus(dpy, win, RevertToParent, CurrentTime);
@@ -73,7 +73,7 @@ index 8f9f601..bf6952b 100644
  	if (embed) {
  		XReparentWindow(dpy, win, parentwin, x, y);
  		XSelectInput(dpy, parentwin, FocusChangeMask | SubstructureNotifyMask);
-@@ -951,8 +978,10 @@ main(int argc, char *argv[])
+@@ -950,8 +977,10 @@ main(int argc, char *argv[])
  			fstrncmp = strncasecmp;
  			fstrstr = cistrstr;
  		} else if (!strcmp(argv[i], "-lm"))/* use locale modifiers */
