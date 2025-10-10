@@ -1,0 +1,20 @@
+diff --git a/src/video/VideoFrame.cpp b/src/video/VideoFrame.cpp
+index f557f3a..fa23370 100644
+--- a/src/video/VideoFrame.cpp
++++ b/src/video/VideoFrame.cpp
+@@ -43,12 +43,12 @@ VideoFrame::VideoFrame( VideoFrame&& other ) : frame( other.frame ), context( ot
+ 	other.frame = nullptr;
+ }
+ 
+-bool VideoFrame::is_keyframe() const{ return frame->key_frame; }
++bool VideoFrame::is_keyframe() const{ return frame->flags & AV_FRAME_FLAG_KEY; }
+ 
+ int VideoFrame::frameNumber() const{
+ 	//TODO: Check if this ever contains useful info
+-	if (frame->display_picture_number != 0)
+-		return frame->display_picture_number;
++	// if (frame->display_picture_number != 0)
++	// 	return frame->display_picture_number;
+ 	
+ 	//Calculate it based on the frame time
+ 	auto second = frame->pts / (double)AV_TIME_BASE * 1000;
