@@ -1,0 +1,14 @@
+diff --git a/interface/gui/importers/VideoImporter.cpp b/interface/gui/importers/VideoImporter.cpp
+index 6dfb2e5..ca2d34c 100644
+--- a/interface/gui/importers/VideoImporter.cpp
++++ b/interface/gui/importers/VideoImporter.cpp
+@@ -32,6 +32,9 @@ VideoImporter::VideoImporter( QString filepath, QWidget* parent )
+ 	:	QDialog( parent ), ui( new Ui_Dialog ), filepath( filepath ), model( this )
+ 	{
+ 	ui->setupUi( this );
++	
++	ui->frames_amount->setValue(ui->frames_amount->maximum());
++	
+ 	ui->preview_view->setModel( &model );
+ 	connect( ui->refresh, SIGNAL( clicked() ), this, SLOT( refresh() ) );
+ }
