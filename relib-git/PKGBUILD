@@ -1,0 +1,33 @@
+_pkgname=ReLib
+pkgname=relib-git
+pkgver=r99.cc00b32
+pkgrel=1
+pkgdesc='My local library view/search program'
+arch=('x86_64')
+url='https://github.com/nisemono0/ReLib'
+depends=(
+    'qt6-base'
+    'quazip-qt6'
+)
+conflicts=("relib-git")
+provides=("relib-git")
+makedepends=('cmake' 'make' 'qt6-base' 'quazip-qt6' 'git')
+
+source=("git+${url}")
+
+sha256sums=('SKIP')
+
+pkgver() {
+    cd $_pkgname
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+    cd $_pkgname
+    cmake -DCMAKE_BUILD_TYPE=Release -S . -B build
+    cmake --build build --config Release
+}
+
+package() {
+    install -Dm755 "${_pkgname}/build/ReLib" -t "${pkgdir}/usr/bin/"
+}
