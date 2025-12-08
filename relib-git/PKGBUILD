@@ -1,6 +1,6 @@
 _pkgname=ReLib
 pkgname=relib-git
-pkgver=r104.be07e98
+pkgver=r106.82944bb
 pkgrel=1
 pkgdesc='My local library view/search program'
 arch=('x86_64')
