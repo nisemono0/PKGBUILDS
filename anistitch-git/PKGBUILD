@@ -9,8 +9,8 @@ depends=(
     'qt6-base'
     'opencv'
 )
-conflicts=("relib-git")
-provides=("relib-git")
+conflicts=("anistitch-git")
+provides=("anistitch-git")
 makedepends=('cmake' 'make' 'git')
 optdepends=(
     'opencl-mesa: For OpenCL support (Generic GPU)'
