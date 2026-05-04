@@ -1,0 +1,38 @@
+_pkgname=AniStitch
+pkgname=anistitch-git
+pkgver=r28.b7d5724
+pkgrel=1
+pkgdesc='Program to stitch images from anime together'
+arch=('x86_64')
+url='https://github.com/nisemono0/AniStitch'
+depends=(
+    'qt6-base'
+    'opencv'
+)
+conflicts=("relib-git")
+provides=("relib-git")
+makedepends=('cmake' 'make' 'git')
+optdepends=(
+    'opencl-mesa: For OpenCL support (Generic GPU)'
+    'opencl-nvidia: For OpenCL support (Nvidia GPU)'
+    'intel-compute-runtime: For OpenCL support (Intel GPU)'
+    'rocm-opencl-runtime: For OpenCL support (AMD Gpu)'
+)
+source=("git+${url}")
+
+sha256sums=('SKIP')
+
+pkgver() {
+    cd $_pkgname
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+    cd $_pkgname
+    cmake -DCMAKE_BUILD_TYPE=Release -S . -B build
+    cmake --build build --config Release
+}
+
+package() {
+    install -Dm755 "${_pkgname}/build/AniStitch" -t "${pkgdir}/usr/bin/"
+}
