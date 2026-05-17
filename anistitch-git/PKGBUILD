@@ -1,6 +1,6 @@
 _pkgname=AniStitch
 pkgname=anistitch-git
-pkgver=r71.9f36a3d
+pkgver=r72.cdd7152
 pkgrel=1
 pkgdesc='Program to stitch images from anime together'
 arch=('x86_64')
