@@ -1,7 +1,7 @@
 _pkgname=ReLib
 pkgname=relib-git
 pkgver=r136.cbf4574
-pkgrel=1
+pkgrel=2
 pkgdesc='My local library view/search program'
 arch=('x86_64')
 url='https://github.com/nisemono0/ReLib'
