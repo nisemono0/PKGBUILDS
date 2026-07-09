@@ -1,7 +1,7 @@
 _pkgname=AniStitch
 pkgname=anistitch-git
 pkgver=r100.9700bea
-pkgrel=1
+pkgrel=2
 pkgdesc='Program to stitch images from anime together'
 arch=('x86_64')
 url='https://github.com/nisemono0/AniStitch'
