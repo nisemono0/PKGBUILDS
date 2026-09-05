@@ -1,0 +1,38 @@
+_pkgname=AniTrack
+pkgname=anitrack
+pkgver=0.8.1
+pkgrel=1
+pkgdesc='Program to track and sync watched anime with AniList'
+arch=('x86_64')
+url='https://github.com/nisemono0/AniTrack.git'
+depends=(
+    'qt6-base'
+)
+conflicts=("anitrack-git")
+provides=("anitrack")
+makedepends=('cmake' 'make' 'git' 'qt6-base')
+optdepends=(
+    'mpv-mpris: For mpv video detection [WIP]'
+)
+source=("git+${url}#tag=v${pkgver}")
+sha256sums=('SKIP')
+
+prepare() {
+    cd "$_pkgname"
+    git submodule update --init --recursive
+}
+
+build() {
+    cd "$_pkgname"
+
+    cmake -S . \
+          -B build \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DENABLE_WIP_FEATURES=OFF
+
+    cmake --build build --config Release
+}
+
+package() {
+    install -Dm755 "${_pkgname}/build/bin/AniTrack" -t "${pkgdir}/usr/bin/"
+}
