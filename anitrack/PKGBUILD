@@ -1,6 +1,6 @@
 _pkgname=AniTrack
 pkgname=anitrack
-pkgver=0.9.1
+pkgver=0.9.2
 pkgrel=1
 pkgdesc='Program to track and sync watched anime with AniList'
 arch=('x86_64')
