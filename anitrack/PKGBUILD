@@ -1,6 +1,6 @@
 _pkgname=AniTrack
 pkgname=anitrack
-pkgver=1.1.0
+pkgver=1.2.0
 pkgrel=1
 pkgdesc='Program to track and sync watched anime with AniList'
 arch=('x86_64')
@@ -12,7 +12,7 @@ conflicts=("anitrack-git")
 provides=("anitrack")
 makedepends=('cmake' 'make' 'git' 'qt6-base')
 optdepends=(
-    'mpv-mpris: For mpv video detection [WIP]'
+    'mpv-mpris: For mpv video detection'
 )
 source=("git+${url}#tag=v${pkgver}")
 sha256sums=('SKIP')
