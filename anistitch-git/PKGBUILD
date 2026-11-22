@@ -1,6 +1,6 @@
 _pkgname=AniStitch
 pkgname=anistitch-git
-pkgver=r101.980cd19
+pkgver=r103.72c05b1
 pkgrel=1
 pkgdesc='Program to stitch images from anime together'
 arch=('x86_64')
@@ -13,6 +13,7 @@ conflicts=("anistitch-git")
 provides=("anistitch-git")
 makedepends=('cmake' 'make' 'git')
 optdepends=(
+    'gst-plugins-good: For GStreamer video load fallback'
     'opencl-mesa: For OpenCL support (Generic GPU)'
     'opencl-nvidia: For OpenCL support (Nvidia GPU)'
     'intel-compute-runtime: For OpenCL support (Intel GPU)'
